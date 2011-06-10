@@ -1,0 +1,30 @@
+<script type="text/javascript" src="$home/openedit/javascript/validateandedit.js"></script>
+
+#foreach ($rule in $sheet.colorRules)
+	<div style="float:left; background-color: $rule.color">&nbsp; $rule.contains &nbsp;</div>
+	#if ($rule.isRow()) &nbsp; (row) #end
+	&nbsp;&nbsp;<a href="$home$cataloghome/jobmanager/jobspreadsheets/colorrules/delete.html?jobid=$job.id&sheet=$sheet.id&contains=$rule.contains">[delete]</a>
+	<br/>
+#end
+
+<br/>
+
+<form id="ruleaddform" action="$home$cataloghome/jobmanager/jobspreadsheets/colorrules/add.html">
+
+<input type="hidden" name="sheet" value="$sheet.getPath()"/>
+<input type="hidden" name="jobid" value="$job.id"/>
+
+Cell contains: 
+<input name="contains" size="20"/>
+
+#set ($colors = $searcherManager.getList($catalogid, "sheetcolors"))
+<select name="color">
+	#foreach ($color in $colors)
+		<option value="$color.value">$color.text</option>
+	#end 
+</select>
+
+&nbsp; Entire Row:
+<input name="row" type="checkbox" value="true"/>
+<input type="submit" value="Add" />
+</form>

@@ -1,0 +1,31 @@
+#set( $section = $content.subsection)
+#if( !$section)
+	#set( $section = "jobtodos")
+#end
+<div id="joblisting">
+<table cellpadding="4" cellspacing="0" width="100%">
+	<tr>
+		<th>Project</th><th>Description</th><th>Sponsor</th><th>Project Type</th><th>Assigned To</th>
+	</tr>
+#foreach ( $hit in $jobs.getAllHits() )
+	#if( $even)
+	<tr >
+	#set( $even = false)
+	#else
+	<tr style="background-color: #EEEEEE;">
+	#set( $even = true)
+	#end	
+		<td><div class=#if($job && $hit.id == $!job.id)"joblistselected" #else "joblist" #end ><a href="$home$cataloghome/jobmanager/$section/${hit.id}.html">$hit.name</a></div></td>
+	<td width="40%">$!hit.shortdescription</td>
+	<td>$!hit.client</td>
+	<td>$!hit.jobtype</td>
+	<td>$!hit.assignedto</td>
+	</tr>
+#end
+</table>
+</div>
+
+	<br>
+#if( $user.hasPermission("tracker.editall") )
+<a href="$home$cataloghome/jobmanager/jobcreatenew.html">Create New Project</a>
+#end

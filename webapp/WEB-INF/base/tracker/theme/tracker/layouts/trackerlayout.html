@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="$home$themeprefix/tracker/styles/style.css" />
+<script language="javascript" src="$home/entermedia/javascript/validateandedit.js"></script>
+<script type="text/javascript" src="$home/entermedia/javascript/jquery-1.4.2.js">  </script>
+<script type="text/javascript" src="$home/entermedia/javascript/jquery-ui-1.8.4.custom.min.js">  </script>
+<script type="text/javascript" src="$home/entermedia/javascript/jquery.livequery.js">   </script>
+<script type="text/javascript" src="$home/entermedia/javascript/jquery.fancybox/jquery.fancybox-1.2.1.js">  </script>
+<script type="text/javascript" src="$home$cataloghome/common/emtracker.js">  </script>
+
+<div id="oeadmin">
+	
+	
+<a href="$home$cataloghome/index.html">EnterMedia Project Tracker</a> 
+#if( $job ) > <a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$job.id">#if( $job.name ) $job.name #else $userManager.getScreenName($job.assignedto)'s Issues #end</a> #end 
+#if( $todo ) > <a href="$home$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$job.id&todoid=$todo.id">Topic: $todo.name</a> #end 
+	
+<span style="float:right;text-align:right;">
+	#if($cantrackeradmin)
+		<a href="$home$cataloghome/admin/index.html">Admin</a> | 
+	#end
+	#if($user)
+		<a href="$home$cataloghome/authentication/logout.html">Log Out</a>
+	#else
+		<a href="$home$cataloghome/authentication/login.html">Log In</a>
+	#end
+</span>
+<div style="margin: 10px; padding:10px;">
+<table width="100%" >
+	<tr>
+		<td class="SIDEMENU" width="200px"  valign="top"> 
+				$pages.include("$cataloghome/jobmanager/menuactions.html", $context)
+		</td>
+		<td style="padding: 10px;" valign="top">
+			$pages.includeContent()
+			</td>
+	</tr>
+</table>
+			
+</div>
+
+</div>
+

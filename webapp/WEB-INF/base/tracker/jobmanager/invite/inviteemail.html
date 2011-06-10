@@ -1,0 +1,16 @@
+$userManager.getScreenName($user.userName) wants you to join their private project, "$job.name", in the
+EnterMedia WorkMonger.
+
+<p>By joining, you will gain access all issues posted within this private project.</p>
+<p>Follow the link below to join.</p>
+#set ($link = "$context.siteRoot$home$cataloghome/jobmanager/accept/index.html?jobid=$job.id&invitationid=${invitationid}")
+<a href="$link">
+$link
+</a>
+
+<p>If the link above does not work, please copy and paste it into your browser's address bar.</p>
+
+Thanks!<br/><br/>
+
+-- 
+$userManager.getScreenName($user.userName)

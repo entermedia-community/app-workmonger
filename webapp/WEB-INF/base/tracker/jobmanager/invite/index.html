@@ -1,0 +1,55 @@
+<h2>Invite Friends</h2>
+<p>
+Invite your friends and colleagues to join you on EnterMedia.
+Enter their email addresses below, separated by commas: 
+</p>
+
+<div style="width: 750px;">
+	<style>
+		th { font-size: 10pt; text-align: right; padding-right: 10px; }
+		#notificationform td { border-style:none; }
+	</style>
+	<form name="editForm" id="viewForm" method="post"  action="$home$cataloghome/jobmanager/invite/invite.html?jobid=$job.id">
+	#set( $oemaxlevel = $context.getRequestParameter("oemaxlevel") )
+	<input type="hidden" name="oemaxlevel" value="$!oemaxlevel"/>
+		<table id="notificationform" >
+		<tr>
+			<td>
+				<strong>To:</strong>
+			</td>
+			<td>
+			<div id="extraemailsbox">
+				<textarea id="extraemails" name="email" style="width:90%;"></textarea>
+			</div>
+			</td>
+		</tr>
+			<tr>
+				<td>
+					<strong>From:</strong>
+				</td>
+				<td>
+					$!user.firstName $!user.lastName #if($user.email) &lt;$user.email&gt; #end
+				</td>
+			</tr>
+			<tr>
+				<td><strong>Subject</strong>:</td>
+				<td><input type="text" size="60" name="subject" value="$user.shortDescription invites you to WorkMonger!"/></td>
+			</tr> 
+			<tr>
+				<td colspan="2">
+					<br>
+					<textarea id="content" name="content" rows="80">
+					$pages.include("$cataloghome/jobmanager/invite/inviteemail.html", $context)
+					</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+			 		<input type="submit" name="Send" value="Invite">
+				</td>
+				<td></td>
+			</tr>
+		</table>	
+		 $pages.include("/system/tools/html/textarea.html?htmltextarea=content&true")
+	</form>
+</div>

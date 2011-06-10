@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+	<property name="virtual">true</property>	
+
+	<property name="subsection">overview</property>
+	<path-action name="JobBudgetModule.loadBudgetForJob" />
+	<inner-layout>/${catalogid}/jobmanager/joboverview.html</inner-layout>
+</page>

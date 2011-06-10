@@ -1,0 +1,3 @@
+<plugin projectname="workmonger">
+	<depend>sundial</depend>
+</plugin>

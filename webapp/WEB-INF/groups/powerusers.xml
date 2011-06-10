@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<group>
+  <group-name>powerusers</group-name>
+  <permissions>
+    <permission>download</permission>
+    <permission>detailview</permission>
+    <permission>collections</permission>
+    <permission>viewarchive</permission>
+    <permission>preview</permission>
+    <permission>zip</permission>
+    <permission>conversion</permission>
+	<permission>savecollection</permission>
+    <permission>downloadfpo</permission>
+    <permission>capturehistory</permission>
+    <permission>excludecatalog:logosyb</permission>
+  </permissions>
+  <properties/>
+</group>

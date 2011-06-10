@@ -1,0 +1,22 @@
+<properties>
+	<property id="upload" >Upload</property>
+	<property id="search" >Search</property>
+	<property id="advancedsearch" >Advanced Search</property>
+	<property id="displayresultsviews" >Display results or views</property>
+	<property id="detailinformation">Detail Information</property>
+	<property id="favorites" >Favorites</property>	
+	<property id="gallery" >Gallery</property>
+	<property id="download" >Downloads</property>
+	<property id="metadata" >Metadata</property>
+	
+</properties>
+
+
+
+
+
+
+
+
+
+

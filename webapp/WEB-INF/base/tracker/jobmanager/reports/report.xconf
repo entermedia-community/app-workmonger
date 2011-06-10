@@ -1,0 +1,6 @@
+<page>
+<path-action name="Script.run" alltypes="true">
+	<script>./generatereport.groovy</script>
+</path-action>
+<generator name="velocity"/>
+</page>

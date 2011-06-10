@@ -1,0 +1,9 @@
+<page>
+  <property name="dateformat">MM/dd/yyyy</property>
+  <page-action name="JobTracking.getDate" />
+
+	<path-action name="JobTracking.loadTodo" />
+	<property name="virtual">true</property>	
+	<property name="subsubsection">todohourssection</property>
+
+</page>

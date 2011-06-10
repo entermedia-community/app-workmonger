@@ -1,0 +1,6 @@
+<properties>
+	<property id="client" >Client</property>
+	<property id="development" >Development</property>
+	<property id="sales" >Sales</property>
+	<property id="closed" >Closed</property>
+</properties>

@@ -1,0 +1,5 @@
+<properties>
+	<property id="new" >Open</property>
+	<property id="hold" >Hold</property>
+	<property id="closed" >Closed</property>
+</properties>

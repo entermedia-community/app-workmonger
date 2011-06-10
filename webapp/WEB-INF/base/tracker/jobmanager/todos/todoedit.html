@@ -1,0 +1,25 @@
+<form name="newstatus" action="$home$cataloghome/jobmanager/todos/todosave.html?jobid=$job.id&todoid=$!todo.id" method="post">
+<div >
+#set( $fields = $jobtracker.getFieldArchive() )
+	$context.putPageValue("fields", $fields )	
+	#set ($searcher = $jobtracker.getTodoSearcher())
+	$context.putPageValue("searcher", $searcher)
+	$context.putPageValue("view", "todoedit")
+	$context.putPageValue("data", $todo)	
+	$pages.include("/system/components/xml/detaileditor.html", $context)
+</div>
+
+<input type="hidden" name="jobid" value="$job.id"/>
+<input type="hidden" name="todoid" value="$!todo.id"/>
+
+
+	#if( $todo )
+	<input type="submit" value="Save" />
+	#else
+	<input type="submit" value="Save As Todo" />
+	#end
+	<input type="hidden" name="origURL" value="$content.path"/>
+</form>
+
+
+

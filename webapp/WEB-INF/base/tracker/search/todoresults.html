@@ -1,0 +1,45 @@
+<table border="0" cellspacing="2" width="80%" class="standard-table" style="padding:10px;">
+	<tr>
+
+	#set( $fields = $jobtracker.getFieldArchive() )
+	#set($tododetails =  $fields.getDataProperties("todo","jobresultstodo",$user))
+	#set( $slist = $fields.getProperties("todolaststatus") ) 
+	<th align="left"> </th>
+	<th align="left"> </th>
+	<th align="left">Client</th>
+	#foreach( $detail in $tododetails )
+	<th align="left" nowrap >$detail.getText()</th>
+	#end		
+	<th nowrap >Last Status</th>
+	<th nowrap >Last Message</th>
+</tr>
+#set( $even = false )
+#foreach ( $hit in $todohits.getAllHits() )
+#set( $job = $jobtracker.getJobArchive().getJobById($hit.jobid ) )
+#set( $todo = $job.getTodo($hit.id ) )
+    #if( $even ) #set( $even = false )
+	<tr>
+	#else
+	<tr style="background-color: #EEEEEE;">
+	#set( $even = true )
+	#end
+	<td><a href="$home$cataloghome/jobs/statushistory/$job.id/${todo.id}.html" >history</a></td>
+	<td><a href="$home$cataloghome/jobs/todos/$job.id/${todo.id}.html" >#$todo.id</a></td>
+	<td>#if( $job.client)$job.client #else $job.name #end</td>
+	#foreach( $detail in $tododetails ) #set( $newval = "$!todo.get($detail.getId())")
+		#if($newval != "" && $detail.isList())
+			#set( $newval = "$!fields.getProperties($detail.id).get($newval)" )
+		#end			
+			<td nowrap>$newval</td>
+	#end
+	<td>#if( $todo.getLastStatus() )$!slist.get($todo.getLastStatus().getType())#end </td>
+	<td><pre>$url_util.xmlEscapeWithWrap($todo.getLastStatus().getNote(),50)</pre> </td>	
+	</tr>
+#end
+</table>
+
+#if ( $jobhits && $jobhits.size() ==0 )
+<p>No jobs found</p>
+#end
+
+<p>Customer <a href="$home$cataloghome/myaccount/addnew.html">add todo</a> screen.</p>

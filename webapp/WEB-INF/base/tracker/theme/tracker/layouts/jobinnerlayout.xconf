@@ -1,0 +1,4 @@
+<page>
+		<inner-layout>${themeprefix}/tracker/layouts/trackerlayout.html</inner-layout>
+	
+</page>

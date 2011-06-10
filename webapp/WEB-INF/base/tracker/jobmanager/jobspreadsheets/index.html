@@ -1,0 +1,44 @@
+<h2>List All Spreadsheets</h2>
+
+
+
+<table width="100%">
+	#foreach( $sheet in $hits)
+	
+	#if ($pages.canView($sheet.getPath()))
+	<tr>
+		<td>
+			<a href="edit.html?jobid=$job.id&sheet=$sheet.id">$sheet.name</a>
+		</td>
+		<td>
+		Last edited on $sheet.getLastEdit()
+		#if( $sheet.getLastEditedBy() )
+			 by $!userManager.getUser($sheet.getLastEditedBy())
+		#end	
+		</td>
+		#if($job.isEditor($user))
+		<td>
+			<div id="renamedialog$sheet.id">
+			<a class="ajax" targetdiv="renamedialog$sheet.id" href="$home$cataloghome/jobmanager/jobspreadsheets/sheetrename.html?jobid=$job.id&sheet=$sheet.id&sspostfix=$context.getRequestParameter('sspostfix')" >rename</a>
+			</div>
+		</td>
+		<td>
+			<div id="deletedialog$sheet.id">
+			<a class="ajax" targetdiv="deletedialog$sheet.id" href="$home$cataloghome/jobmanager/jobspreadsheets/sheetdelete.html?jobid=$job.id&sheet=$sheet.id&sspostfix=$context.getRequestParameter('sspostfix')">delete</a>
+			</div>
+		</td>
+		#end
+		<td>
+			contains $!sheet.getRows().size() rows
+		</td>
+	</tr>
+	#end
+	#end
+</table>
+#if( $hits.size() == 0 )
+	<p>No spreadsheets found</p>
+#end
+<br />
+#if($job.isEditor($user))
+<p><a href="addnew.html?jobid=$job.id&sspostfix=$job.id">Add New SpreadSheet</a></p>
+#end

@@ -1,0 +1,17 @@
+
+<job id="101" name="Test Job" createdby="admin" priority="3">
+  <property id="name">Test Job</property>
+  <property id="client">OpenEdit</property>
+  <property id="jobtype">project</property>
+  <property id="shortdescription">Job for testing</property>
+  <property id="contact">support</property>
+  <property id="assignedto">development</property>
+  <property id="jobopen">true</property>
+  <property id="jobcreationdate">3/10/2009</property>
+  <property id="createdby">admin</property>
+  <group id="notify"/>
+  <todo id="102" rank="0" createdby="admin">
+    <property id="name">Test Task 1</property>
+    <todostatus id="103" type="receivedonline" user="admin" date="2009-03-10T09:09:38.092-0300"><![CDATA[Task for testing]]></todostatus>
+  </todo>
+</job>

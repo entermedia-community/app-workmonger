@@ -1,0 +1,5 @@
+<page>
+	<generator name="velocity" />
+	<path-action name="JobTracking.getTodosForMonth" alltypes="true"/>
+	
+</page>

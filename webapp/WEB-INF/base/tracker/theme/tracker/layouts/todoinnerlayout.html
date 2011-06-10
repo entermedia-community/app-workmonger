@@ -1,0 +1,15 @@
+#if( $job )
+	<h2>$todo.name</h2>
+	<div style="padding-left: 10px;">Due Date: $!context.getDate( $todo.duedate )
+	
+	#if($job.canEdit( $user ) ) |
+	<a href="$cataloghome/jobmanager/todos/todoedit.html?jobid=$job.id&todoid=$todo.id">Edit</a> |
+	<a href="$cataloghome/jobmanager/todos/todohours.html?jobid=$job.id&todoid=$todo.id">Track Hours</a> |
+	#end
+	<a href="$home$content.path?cache=false&jobid=$job.id&todoid=$todo.id">Refresh</a> 
+	</div>
+	$pages.includeContent()
+
+#else
+	No job selected
+#end

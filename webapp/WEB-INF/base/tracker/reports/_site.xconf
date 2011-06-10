@@ -1,0 +1,8 @@
+<page>
+
+	<property name="section">reportssection</property>
+	<property name="searchroot">/system/tools</property>
+	<property name="typespath">/system/tools/search/types</property>
+	
+
+</page>

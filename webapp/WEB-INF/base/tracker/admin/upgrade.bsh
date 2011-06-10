@@ -1,0 +1,64 @@
+import java.io.*;
+import org.openedit.util.*;
+import com.openedit.util.*;
+import org.openedit.tracker.*;
+
+tracker = context.get("jobtracker");
+
+FileUtils util = new FileUtils();
+PathUtilities putil = new PathUtilities();
+
+String root = tracker.getRoot().getCanonicalPath() + "/" + tracker.getCatalogId();
+
+File oldJobs = new File( root, "/data/jobs");
+
+File[] all = oldJobs.listFiles();
+for( int i=0;i<all.length;i++)
+{
+	String jobid = all[i].getName();
+	if( !jobid.endsWith(".xml"))
+	{
+		continue;
+	}
+	jobid = putil.extractPageName(jobid);
+	File newName = new File( root, "/postings/" + jobid);
+	newName.mkdirs();
+	util.copyFiles( all[i], newName );
+	File data = new File( root, "/postings/" + jobid + "/" + jobid + ".xml");
+	data.renameTo( new File( root, "/postings/" + jobid + "/" + jobid + "data.xml"));
+	
+	FileWriter out = new FileWriter(new File( newName,"_site.xconf"));
+	out.write("<page>\n");
+	out.write("<property name=\"jobid\">" + newName.getName() + "</property>\n");
+	out.write("<property name=\"fallbackdirectory\">/${catalogid}/jobmanager</property>\n");
+	out.write("</page>\n");
+	out.close();
+
+	File oldTime = new File( root, "/data/jobs/time/" + jobid + "/" + jobid + ".xml");
+	
+	File newTime = new File( root, "/postings/" + jobid + "/time/data.xml");
+	oldTime.renameTo(newTime);
+	
+	File oldFiles = new File( root, "/data/jobs/files/" + jobid + "/");
+	if( oldFiles.exists() )
+	{
+		File newAttachments = new File( root, "/postings/" + jobid + "/attachments/");
+		util.copyFiles( oldFiles, newAttachments);
+	}
+	File oldSheets = new File( root, "/data/sheets/" + jobid + "/");
+	if( oldSheets.exists() )
+	{
+		File newSheets = new File( root, "/postings/" + jobid + "/sheets/");
+		util.copyFiles( oldSheets, newSheets);
+	}
+	File oldBudget = new File( root, "/data/budgets/" + jobid + ".ics");
+	if( oldBudget.exists() )
+	{
+		File newBudget = new File( root, "/postings/" + jobid + "/budget/data.ics");
+		util.copyFiles( oldBudget, newBudget);
+	}
+	
+	
+	
+}
+context.putPageValue("msg", "<pre>Edited " + all.length + "</pre>");

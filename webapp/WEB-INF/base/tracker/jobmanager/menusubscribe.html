@@ -1,0 +1,16 @@
+<div id="oeactions">
+#set($isEditor = $job.isEditor($user)) 
+##<div id="jobfollowers"><a href="$home$cataloghome/jobmanager/jobfollowers/index.html?jobid=${job.id}" ><span>View Members ($job.getUserEntries().size())</span></a></div>
+
+#if( $user )
+#if( !$job.hasMember($user) )
+##<div> <a href="$home$cataloghome/postings/${job.id}/subscribe.html"><img src="$home/openedit/images/icons/addfav_16x16.png" border="0" title="Follow these postings"> Subscribe</a></div>
+#elseif(!$job.getCreatedByUser() == $user.userName)
+<div> <a href="$home$cataloghome/jobmanager/unsubscribe.html?jobid=${job.id}"><img src="$home/openedit/images/icons/addfav_16x16.png" border="0" title="Stop Following these postings"> Unsubscribe</a></div>
+#end
+#end
+				
+#if( $canadmintracker )
+	<div id="jobpermissions"><a href="$home$cataloghome/jobmanager/jobpermissions/index.html?jobid=${job.id}" ><span>System Groups</span></a></div>
+#end
+</div>

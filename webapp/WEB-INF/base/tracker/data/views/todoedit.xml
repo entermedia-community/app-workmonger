@@ -1,0 +1,8 @@
+<properties>
+
+<property id="name" />
+<property id="duedate" />
+<property id="todoarea" />
+<property id="currentstate" />
+
+</properties>

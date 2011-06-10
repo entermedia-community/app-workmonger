@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+  	<path-action name="Page.loadPageManager" />
+  	<path-action name="JobTracking.uploadFinish" />	
+	<path-action name="JobTracking.searchFiles" />
+	
+</page>
+

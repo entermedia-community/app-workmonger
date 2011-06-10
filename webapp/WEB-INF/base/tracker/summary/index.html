@@ -1,0 +1,7 @@
+	#if(!$catalogid)
+		#set($catalogid = $context.getRequestParameter("catalogid"))
+	#end
+	#set($job = $jobtracker.getJobArchive().getJobById("${user.getUserName()}_home"))
+				<h2>Issue Tracker</h2>
+				$pages.include("/$catalogid/summary/results.html", $context)
+	<a href="$home$cataloghome/index.html">View All</a>

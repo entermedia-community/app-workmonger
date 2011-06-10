@@ -1,0 +1,11 @@
+<page>
+	<view-requirements><blank /></view-requirements>
+	<property name="section">myaccountsection</property>
+	<inner-layout>${themeprefix}/tracker/layouts/jobinnerlayout.html</inner-layout>
+	<property name="hitsname">todohits</property>
+		 <path-action name="JobTracking.getOpenJobList" >
+		 	<hitsname>jobs</hitsname>
+		 </path-action>
+	 	<property name="defaultsort">namesorted,assignedto</property>
+	
+</page>

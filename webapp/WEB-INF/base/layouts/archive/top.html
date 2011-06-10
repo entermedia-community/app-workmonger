@@ -1,0 +1,37 @@
+<style>
+	.TOPMENU
+{
+	background-color: #36578c;
+	border-color: #36578c;
+}
+
+.TOPMENU A
+{
+	color: white;
+	padding: 3px;
+	font-weight: bold;
+}
+.TOPMENU A:visited
+{
+	color: white;
+	padding: 3px;
+	font-weight: bold;
+}
+</style>
+<table cellspacing=0 cellpadding=0  width="100%" class="topheader TOPMENU" >
+<tr>
+<td>
+<a href="$home/index.html"><img src="$home$page.directory/images/logosm.gif" border=0 /></a>
+</td>
+<td width="50%"  align="center" class="toplinks"><br><br> 
+#foreach ( $link in $linktree.getLinkChildren("index") )
+	#if( $pages.doesExist($link.path ) )
+		<a #if ( $link.isChildSelected() )class=active #else class=menu #end href="$home$link.path" >$link.text</a>
+	#end
+#end
+
+
+
+</td>
+</tr>
+</table>

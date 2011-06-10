@@ -1,0 +1,6 @@
+<page>
+	<path-action name="JobTracking.saveTimeEntry" />
+	<path-action name="Admin.redirectToOriginal"/>
+		<property name="virtual">true</property>
+	
+</page>

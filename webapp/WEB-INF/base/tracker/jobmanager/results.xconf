@@ -1,0 +1,12 @@
+<page>
+
+<path-action name="JobTracking.searchTodos" >
+		<not>
+			<jobopen>false</jobopen>
+			
+		</not>
+		
+</path-action>
+<page-action name="JobTracking.loadTodoHits" />
+<page-action name="User.getUserManager" />
+</page>

@@ -1,0 +1,6 @@
+<page>
+	<path-action name="JobTracking.saveJobPermissions" />
+	<property name="subsection">jobpermissions</property>
+
+  <page-action name="User.getUserManager"/>
+</page>

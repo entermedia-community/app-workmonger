@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+	<path-action name="Page.uploadFile" />
+	<path-action name="JobTracking.jobHasImage"/>
+	<property name="virtual">true</property>
+</page>

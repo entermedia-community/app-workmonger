@@ -1,0 +1,8 @@
+<page>
+
+	<path-action name="JobTracking.generateHoursReport"/>
+ 	
+	<path-action name="JobTracking.getOpenJobList" />
+ 	<property name="defaultsort">namesorted</property>
+	 
+</page>

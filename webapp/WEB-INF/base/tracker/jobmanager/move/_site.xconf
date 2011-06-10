@@ -1,0 +1,8 @@
+<page>
+	<property name="defaultsort">namesorted</property>
+	<path-action name="JobTracking.loadJob" />
+	<path-action name="JobTracking.getOpenJobList" />
+	<property name="section">jobmanagersection</property>
+
+<inner-layout>${catalogid}/common/innerlayout.html</inner-layout>
+</page>

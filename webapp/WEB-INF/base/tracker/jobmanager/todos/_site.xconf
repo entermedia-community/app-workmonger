@@ -1,0 +1,11 @@
+<page>
+<path-action name="JobTracking.getOpenJobList" />
+	<property name="defaultsort">priority</property>
+
+	<path-action name="JobTracking.loadJob" />
+	<property name="section">jobmanagersection</property>
+	<property name="subsection">jobtodos</property>
+
+	<inner-layout>${themeprefix}/tracker/layouts/todoinnerlayout.html</inner-layout>
+
+</page>

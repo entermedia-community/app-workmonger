@@ -1,0 +1,32 @@
+<h2>All Projects</h2>
+#if($jobs.size() > 0)
+	<table width="50%">
+	#foreach($job in $jobs)
+	<tr>
+		<td> <a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$job.id">
+			#if($job.name)
+				$job.name
+			#else
+				$userManager.getScreenName($job.get("createdby"))'s Issues
+			#end
+			</a>
+		</td>
+		<td>
+			$!job.shortdescription
+		</td>
+		<td>
+		#if($job.get("hidden") == "true")
+			Private
+		#end
+		</td>
+	</tr>
+	#end
+	</table>
+#else
+	No projects found.
+#end
+#if( $canlevel2support || $cantrackeradmin)
+	<p>	
+		<a href="$home$cataloghome/jobmanager/jobcreatenew.html">Create A New Project</a>
+	</p>
+#end

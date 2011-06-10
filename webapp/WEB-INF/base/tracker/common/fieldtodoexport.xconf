@@ -1,0 +1,12 @@
+<page>
+
+	<property name="hitsname">todohits</property>
+	<path-action name="JobTracking.searchTodos" alltypes="true"/>
+ 	<path-action name="JobTracking.loadTodoHits" alltypes="true"/>
+ 	<path-action name="JobTracking.getJobTracker" alltypes="true"/>
+	<page-action name="User.getUserManager" alltypes="true"/>
+	<page-action name="Script.run" alltypes="true">
+		<script>./fieldtodoexport.bsh</script>
+	</page-action>
+	<property name="virtual">true</property>
+</page>

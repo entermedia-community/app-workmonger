@@ -1,0 +1,48 @@
+<page>
+	<property name="editable">false</property>
+	<property name="hitsname">jobhits</property>
+  	<property name="defaultsort">subscribercountUp</property>
+	<path-action name="JobTracking.getJobTracker" alltypes="true" />
+	<property name="showtimetracking">true</property>
+	<property name="text.trackingname">Hours</property>
+	<property name="allowguestregistration">true</property>
+	
+	<path-action name="Admin.getTheme" />
+	<inner-layout>${themeprefix}/tracker/layouts/trackerlayout.html</inner-layout>
+	<path-action name="Admin.allowViewing">
+		<login-path>/${applicationid}/authentication/login.html</login-path>
+	</path-action>
+	<path-action name="JobTracking.loadJob" alltypes="true" />
+	<path-action name="Admin.loadPermissions"/>
+	
+	
+	<permission name="post">
+		<user />
+	</permission>
+	<permission name="view">
+<boolean value="true"/>
+	</permission>
+	<permission name="viewhours">
+		<user />
+	</permission>
+	<permission name="editspreadsheet">
+		<user />
+	</permission>
+	<permission name="trackeradmin">
+		<or>
+			<group name="administrators"/>
+		</or>
+	</permission>
+	<permission name="level2support">
+			<group id="level2"/>
+	</permission>
+	<property name="oeplugintitle">
+		<value>Project Tracker</value>
+		<value locale="es">Seguidor de Proyectos</value>
+	</property>
+    <property name="oeplugintype">openedit-tracker</property>
+	<property name="oepluginbean">JobTracking</property>
+	<path-action name="User.getUserManager"/>
+	<property name="catalogid">tracker</property>
+	<property name="themeprefix">/tracker/theme</property>
+</page>

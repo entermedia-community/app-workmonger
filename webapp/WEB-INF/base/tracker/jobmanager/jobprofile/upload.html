@@ -1,0 +1,57 @@
+<br><br><br>
+<h2>Upload New Profile Picture</h2>
+<form id="uploadform" name="wizard" method="post" enctype="multipart/form-data" target="_top" action="$home/$catalogid/jobmanager/jobprofile/uploadfile-finish.html?cache=false" >
+	<input type="hidden" name="origURL" value="$home/${catalogid}/jobmanager/jobedit/index.html?jobid=$job.id" />	
+	<input type="hidden" name="jobid" value="$job.getId()"/>
+	<div id="uploadscreen">
+		<div id="alluploadfiles">
+			$pages.include("/${cataloghome}/jobmanager/jobprofile/uploadfield.html", $context)
+		</div>
+		<input type="hidden" id="targetname" name="targetname" value="profile.jpg"/>
+		<input type="hidden" id="path" name="path" value="/WEB-INF/data${cataloghome}/assets/${job.getId()}" size="35" />
+		<p>
+			<input type="button" id="finishbutton" name="Finish" value="Upload" onclick="doUpload('uploadform');">
+
+			##This div is important. AJAX replaces it.
+			<div id="waiting">
+			</div>
+		</p>
+	</div>
+	
+<script type="text/javascript" >
+	
+ 	doUpload =  function( inForm )
+ 	{
+ 	 	file = document.getElementById("file.0");
+ 		form = document.getElementById(inForm);
+ 		if ( form == null )
+		{
+			alert("[[No form found]]");
+			alert( "[[see]]:" + form );
+		}
+		//form.target = "_self";
+		var finishButton = document.getElementById('finishbutton');
+		if (finishButton != null)
+		{
+			finishButton.disabled = true;
+		}
+		//new Insertion.Bottom('waiting', "<div><img src='$home/openedit/images/toolbar/spinner.gif'/><br/>[[Uploading, please wait...]]</div>");
+		jQuery("#waiting").append("<div><img src='$home/openedit/images/toolbar/spinner.gif'/><br/>[[Uploading, please wait...]]</div>");
+		form.submit();
+ 	}
+
+	SetPath =  function( inUrl )
+	{
+		var input = document.getElementById("path");
+		//alert(inUrl);
+		input.value = inUrl;
+	}
+
+	//usedragdrop = function()
+	//{	
+	//	jQuery('#uploadscreen').load('$home/openedit/files/upload/dragdrop.html?path=$cataloghome/data/originals/$asset.sourcePath/', {});
+	//}
+	
+	
+</script>
+</form>

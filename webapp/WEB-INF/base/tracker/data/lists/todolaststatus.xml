@@ -1,0 +1,9 @@
+<properties>
+	<property id="messagereceived" >New Message</property>
+	
+	<property id="receivedonlinehigh" >High Priority</property>
+	<property id="receivedonline" >Regular Priority</property>
+	<property id="receivedonlinelow" >Lower Priority</property>
+	
+	<property id="closed" >Closed</property>
+</properties>

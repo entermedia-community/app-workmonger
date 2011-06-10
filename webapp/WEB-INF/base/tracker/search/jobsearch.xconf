@@ -1,0 +1,5 @@
+<page>
+
+	<path-action name="JobTracking.searchJobs" />
+	<page-action name="JobTracking.loadHits" />
+</page>

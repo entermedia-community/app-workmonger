@@ -1,0 +1,24 @@
+<table id="list" width="100%">
+	<tr>
+		#foreach( $detail in $fields )
+			<th align="left">
+			$detail.getText()
+			</th>
+		#end
+	</tr>
+
+	#foreach($hit in $hits.getAllHits())
+	<tr style="background-color: $color;" >
+		#foreach( $detail in $fields )							
+			#if( $detail.isList() ) #set( $slist = $jobtracker.searcherManager.getList($catalogid, $detail.id) ) 
+				<td>$!slist.get($hit.get($detail.getId()))&nbsp;</td>	
+			#elseif( $detail.id == "name" )
+				<td><b><a style="text-decoration: none;"  href="$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$hit.jobid&todoid=$hit.id">$!hit.get($detail.getId())</a></b></td>
+			#else	
+				<td>$!hit.get($detail.getId())&nbsp;</td>
+			#end
+		#end
+	</tr>
+	#end
+</table>
+#if ($hits) $hits.size() #else 0#end total records

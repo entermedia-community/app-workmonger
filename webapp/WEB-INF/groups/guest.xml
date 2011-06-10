@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<group>
+  <group-name>guest</group-name>
+  <permissions>
+    <permission>zip</permission>
+    <permission>savecollection</permission>
+    <permission>excluderecords:PII_site:false</permission>
+    <permission>conversion</permission>
+    <permission>downloadfpo</permission>
+    <permission>preview</permission>
+    <permission>detailview</permission>
+    <permission>download</permission>
+    <permission>capturehistory</permission>
+    <permission>viewarchive</permission>
+    <permission>collections</permission>
+  </permissions>
+  <properties/>
+</group>

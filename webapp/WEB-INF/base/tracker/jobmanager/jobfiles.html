@@ -1,0 +1,16 @@
+<h2>Group Files</h2>
+$pages.include("$cataloghome/jobmanager/upload/results.html")
+
+#if( $user.hasPermission("oe.edit.upload") && $job.isEditor($user))
+<p>
+	Please browse for a file to upload. You can also upload zip files that will be automatically unzipped on the server.
+</p>
+
+<form name="wizard" method="post" enctype="multipart/form-data" action="$home$cataloghome/jobmanager/upload/uploadfinish.html" >
+<input type="hidden" name="jobid" value="$job.id"/>
+
+$pages.include("$cataloghome/jobmanager/upload/uploader.html")
+</form>
+#else
+<p>Please ask the admin for upload permissions</p>
+#end

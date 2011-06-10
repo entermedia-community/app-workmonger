@@ -1,0 +1,4 @@
+<properties>
+	<property id="true" >Open</property>
+	<property id="false" >Closed</property>
+</properties>

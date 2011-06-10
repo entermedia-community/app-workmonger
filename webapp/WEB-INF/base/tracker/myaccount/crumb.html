@@ -1,0 +1,9 @@
+<A href="$home/">Home</A>
+	#if( $job )
+		&gt;
+		 <a href = "$home$cataloghome/myaccount">$job.name</a> 
+	#end	
+	#if( $todo && $todo.name)
+		&gt;
+		 <a href = "$home$cataloghome/myaccount/statushistory/${todo.jobId}/${todo.id}.html">$todo.name</a>
+	#end	

@@ -1,0 +1,4 @@
+
+<configuration>
+        <action period="24h" startdelay="1s" path="/pindar/admin/import.html" username="admin" />
+</configuration>

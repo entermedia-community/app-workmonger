@@ -1,0 +1,12 @@
+<h2>Create New Spreadsheet</h2>
+
+<p>To create a new spreadsheet please enter a name:
+</p>
+<form action="createnew.html">
+	<input name="filename" size="30" />	<br>
+	<input name="sspostfix" type="hidden" value="$job.id" />
+(must not contain illegal characters such as "" or %)
+	<input type="submit" value="Ok" />
+	<input type="hidden" name="jobid" value="$job.id" />
+</form>
+

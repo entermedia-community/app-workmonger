@@ -1,0 +1,11 @@
+<page>
+
+	<property name="text.menulabel">
+		<value>Followers</value>
+	</property>
+	
+	<property name="show">jobsubscribe</property>
+  <layout />
+  <inner-layout />
+
+</page>

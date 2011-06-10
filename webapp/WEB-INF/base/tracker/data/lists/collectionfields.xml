@@ -1,0 +1,13 @@
+<properties>
+	<property id="username" >User</property>
+	<property id="date" >Date</property>
+	<property id="comments">Comments</property>
+	<property id="status" >Status</property>
+	<property id="proj" >Project</property>
+	<property id="use" >Usage</property>
+	<property id="use2" >Usage Detail</property>
+	<!--
+	<property id="nm" ></property>
+	< property id="comments" >Comments</property -->
+
+</properties>

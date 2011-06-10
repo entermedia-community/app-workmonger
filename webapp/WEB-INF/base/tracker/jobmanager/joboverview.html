@@ -1,0 +1,87 @@
+#set( $events = $budget.findPastYearsRecords(4))
+#if( $events.size() > 0)
+#set( $balance = 0)
+#set( $hourssubtotal = 0)
+<table width="100%">
+<tr>
+	<th>Date</th>
+	<th>Description</th>
+	<th>Budget (+)</th>
+	<th>Hours (-)</th>
+	<th>Hours Sub-Total</th>
+	<th>Invoiced</th>
+	<th>Balance</th>
+	<th> </th>
+</tr>	
+#foreach( $event in $events )
+#if( $event.type == "credit" || $event.type == "debit")
+	<tr style="background-color: #EEEEEE;">
+#else
+	<tr>
+#end
+<td>$event.getStart()</td>	
+<td>$event.getSummary()</td>
+#if( $event.type == "credit" )
+	#set( $balance = $budget.add($balance,$event.amount) )	
+	<td>$event.amount</td><td> </td><td></td><td></td>
+#elseif( $event.type == "hours" )
+	#set( $balance = $budget.subtract($balance,$event.amount) )	
+	#set( $hourssubtotal = $budget.add($hourssubtotal,$event.amount) )	
+	<td></td><td><a href="$home$cataloghome/jobmanager/todos/todohours.html?jobid=$job.id&todoid=${event.todoid}">$event.amount</a></td><td>$hourssubtotal</td><td></td>
+#elseif( $event.type == "debit" )
+	#set( $hourssubtotal = $budget.subtract($hourssubtotal,$event.amount))
+	<td></td><td></td><td>$hourssubtotal</td><td>$event.amount</td>
+#end
+<td>$balance</td>
+<td> </td>
+<td><a href="$home$cataloghome/jobmanager/budget/remove.html?eventid=$event.id&jobid=$job.id">[remove]</a></td>
+</tr>	
+#end
+</table>
+<br>
+#if( $balance < 0)
+<p style="color: red">This project is overdraft by $balance Please secure more budget.</p>		
+#else
+<p>This project has a budget of $balance remaining.</p>	
+#end
+<p>If you add hours you may need to <a href="$home$cataloghome/jobmanager/budget/reload.html?jobid=$job.id&forcereload=true">reload this page</a></p>
+
+#else
+<p>No budget information available</p>
+#end
+<br>
+
+<p>Total hours on this job are: $job.hours</p>
+
+#if ($job.getCreatedByUser())
+<p> Job Created by $job.getCreatedByUser()</p> 
+#end
+<p>This job is priority $job.priority</p>
+<p>This job has $job.todos.size() todos</p>
+
+<br><br>
+<hr />
+<br>
+<h3>Add Budget</h3>
+<form name="oecredit" method="post" action="$home$cataloghome/jobmanager/budget/addcredit.html">
+<div style="display:block;text-align:right;width:300px;">
+	Description: <input name="note" /><br>
+	Hours: <input name="amount" /><br>
+	Date: <input name="date" /><br>
+		(mm/dd/yyyy)<br>
+	<input type="hidden" name="jobid" value="$job.id" />
+	<input type="submit" value="Ok"	 />
+</div>	
+</form>
+<br>
+<h3>Add an Invoice</h3>
+<form name="oedebit" method="post" action="$home$cataloghome/jobmanager/budget/adddebit.html">
+<div style="display:block;text-align:right;width:300px;">
+	Description: <input name="note" /><br>
+	Hours Invoiced: <input name="amount" /><br>
+	Date: <input name="date" /><br> 
+	(mm/dd/yyyy)<br>
+	<input type="hidden" name="jobid" value="$job.id" />
+	<input type="submit" value="Ok"	 />
+</div>	
+</form>

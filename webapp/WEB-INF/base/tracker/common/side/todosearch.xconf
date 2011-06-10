@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page>
+
+	<layout />
+	<inner-layout />
+
+<property name="hitsname">todohits</property>
+	 <page-action name="JobTracking.loadTodoHits" />
+
+<property name="show">showtodosearch</property>
+<property name="menulabel">Todo Search</property>
+
+</page>

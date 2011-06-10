@@ -1,0 +1,8 @@
+<properties>
+	<property id="onhold">On Hold</property>
+	<property id="opened" >Opened</property>
+	<property id="inprogress" >In Progress</property>
+	<property id="readytotest" >Ready to Test</property>
+	<property id="approved">Approved -Ready to Deploy</property>
+	
+</properties>	

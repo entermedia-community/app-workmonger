@@ -1,0 +1,4 @@
+%Fieldnames
+id	name	priority	open	exist	client	jobtype	shortdescription	contact	assignedto
+%Data
+newJobId	Test Job	1	true	true	Test client	project	Short Desc	Contact name	admin

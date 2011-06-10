@@ -1,0 +1,10 @@
+<properties>
+
+<property id="name" />
+<property id="todolaststatus" />
+<property id="duedate" />
+<property id="todolaststatussummary" />
+<property id="todolaststatususer" />
+<property id="todolaststatusdate" />
+<property id="jobassignedto" />
+</properties>

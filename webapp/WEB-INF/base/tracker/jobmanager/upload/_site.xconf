@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+	<view-requirements>
+		<permission name="oe.edit.upload"/>
+	</view-requirements>
+		<property name="subsection">jobfiles</property>
+	
+</page>
+

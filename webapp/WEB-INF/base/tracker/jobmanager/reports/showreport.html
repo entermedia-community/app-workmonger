@@ -1,0 +1,74 @@
+<script type="text/javascript" src="/system/components/javascript/jquery-1.4.2.js">  </script> 
+
+
+
+<table class="reporttable">
+
+<tr>
+#foreach( $header in $csvfile.getHeader().getHeaderNames() )
+	<th>$header</th>
+#end
+</tr>
+
+#foreach($row in $csvfile.getAllRows())
+<tr class="cellrow" id="$velocityCount" >
+#foreach($cell in $row.getData())
+<td>$cell</td>
+#end
+</tr>
+
+#end
+
+</table>
+
+<script type="text/javascript">
+	jQuery(".cellrow").each(function () {
+		var priority = $(this).find(":nth-child(2)").text();
+		
+		var timecell = $(this).find(":nth-child(7)"); 
+		var time = parseInt(timecell.text());
+		
+		var color = "green";
+		
+		if( priority.match("^High") && time > 2 )
+		{
+			color = "red";
+		}
+		if( priority.match("^Regular") && time > 8 )
+		{
+			color = "red";
+		}
+		if( priority.match("^Low") && time > 16 )
+		{
+			color = "red";
+		}
+		if( color == "red")
+		{
+			timecell.addClass('red');
+		} 
+		else
+		{
+			timecell.addClass('green');
+		}
+	} );
+	
+
+</script>
+
+<style type="text/css">
+
+.headerrow {
+font-weight: bold;
+}
+
+.red {
+background-color: red;
+}
+
+
+.green {
+background-color: green;
+}
+
+
+</style>

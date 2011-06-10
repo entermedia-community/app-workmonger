@@ -1,0 +1,7 @@
+<page>
+	<generator name="downloadGenerator" />
+	<path-action name="MediaArchiveModule.forceDownload" alltypes="true" />
+	<property name="virtual">true</property>
+	<property name="downloadrootdirectory">/${catalogid}/jobmanager/download</property>
+	<property name="newpathprefix">/WEB-INF/data/${catalogid}</property>
+ </page>

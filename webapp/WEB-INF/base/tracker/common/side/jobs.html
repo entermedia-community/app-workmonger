@@ -1,0 +1,38 @@
+<div class="sidecontent">
+<h2>Open Jobs</h2>
+	<table cellspacing="2" width="100%" class="standard-table" >
+	#set( $even = false )	#set($fields = $jobtracker.getJobDataProperties("openjobs", $user	))
+	#foreach ( $hit in $openjobs.getAllHits() )
+		#if ( $even == false )
+			<tr style="background-color: #EEEEEE;">
+			#set( $even = true )
+		#else
+			<tr>
+			#set( $even = false )
+		#end
+		#foreach($detail in $fields )
+		<td nowrap>#if( $velocityCount == 1 )<a href="$home$cataloghome/details/${hit.id}.html">$hit.get($detail.getId())</a>
+		#else
+			#if( $detail.isList() )
+				#set( $types = $jobtracker.getFieldArchive().getProperties(${detail.getId()}) ) 
+				#set( $val = "$!hit.get($detail.getId())")
+				$!types.get($val)
+			#else
+				$!hit.get($detail.getId())
+			#end
+		#end
+		</td>
+		#end	
+		</tr>
+	#end
+	</table>
+	
+	#if ( $openjobs && $openjobs.getTotal() ==0 )
+	<p>No open jobs found</p>
+	#end
+	
+<div class="borderTopRight SIDEBAR" align="center" >
+	<a href="$home$cataloghome/jobcreatenew.html">Create New Job</a>
+</div>
+
+</div>

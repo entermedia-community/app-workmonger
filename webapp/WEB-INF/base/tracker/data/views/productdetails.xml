@@ -1,0 +1,12 @@
+<properties>
+<property id="name" />
+
+<property id="assetmodificationdate" />
+<property id="notes" />
+<property id="fileformat" />
+
+<property id="recordmodificationdate" />
+
+<property id="status" />
+
+</properties>

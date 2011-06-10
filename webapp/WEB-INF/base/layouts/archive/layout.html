@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>#if( $catalog )$!catalog.name -#end #if ( $product ) $!product.name -#end $!content.title</title>
+<meta name="keywords" content="$!content.keywords" />
+<meta name="description" content="$!content.description" />
+<meta name="MSSmartTagsPreventParsing" content="TRUE" />
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no" />
+<link rel="stylesheet" href="$home/layouts/archive/style.css">
+
+</head>
+<body id="body" >
+<table border="0" cellpadding="0" cellspacing="0"  height="95%" width="100%">
+<tr>
+<td  valign="top" >#if($pages.doesExist( "$cataloghome/layout/top.html" ) )
+$pages.include("$cataloghome/layout/top.html")
+#else
+$pages.include("$page.directory/top.html")
+#end
+</td>	
+</tr>
+<tr height="100%" >
+<td valign="top">
+$pages.includeContent()
+</td>
+</tr>
+</table>
+
+</body>
+</html>

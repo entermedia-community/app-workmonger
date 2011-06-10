@@ -1,0 +1,11 @@
+<page>
+	<property name="defaultsort">subscribercount</property>
+	<property name="section">jobmanagersection</property>
+
+	<inner-layout>${themeprefix}/tracker/layouts/jobinnerlayout.html</inner-layout>
+	
+	<permission name="view">
+		<action name="JobTracking.canViewJob"/>
+	</permission>
+	
+</page>

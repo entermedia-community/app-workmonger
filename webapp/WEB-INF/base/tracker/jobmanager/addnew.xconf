@@ -1,0 +1,10 @@
+<page>
+<path-action name="ValidationModule.validate">
+    <field name="summary">
+      <rule name="required">*</rule>
+    </field>
+  </path-action>
+
+  <path-action name="JobTracking.jobReceived" />
+  <property name="viewpostings">true</property>
+</page>

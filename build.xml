@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="default" name="workmonger">
+<!-- doc before compile -->
+  <target name="default" depends="clean, source, update-dependencies, compile, jar, javadoc, war, publish"/>
+	<target name="dependency" depends="default"/>
+    <property file="build.properties"/>
+    <property name="appname" value="${ant.project.name}"/>
+    <property name="org" value="OpenEdit, Inc."/>
+    <property name="src" location="${basedir}/src"/>
+    <property name="resources" location="resources"/>
+    <property name="etc" location="etc"/>
+	<property name="testsrc" location="test"/>
+
+    <property name="webapp" value="${basedir}/webapp"/>
+    <property name="lib" location="${basedir}/lib"/>
+    <property name="bin" location="${basedir}/bin"/>
+    <property name="build" location="${basedir}/build"/>
+    <property name="wardir" location="${build}/wartmp"/>
+    <property name="webinf" value="${wardir}/WEB-INF"/>
+
+	<!-- 
+		========================================================================
+		Anthill build server properties.  These properties will be passed in
+		by anthill when this script is executed on the build server.
+		
+			- "version" is set by the version adapter
+			- "deployDir" is set by anthill.publish.dir
+		========================================================================
+	--> 
+  	<property name="version"  value="dev"/>
+  	<property name="deployDir" location="deploy"/>
+  	
+  	<!-- A convenience variable for documentation output -->
+  	<property name="versionDir" location="${deployDir}/${version}"/>
+  	<property name="versionedApp" value="${appname}-${version}"/>
+  	
+  	<!-- Edit this project dependency list for your project
+		========================================================================
+		Anthill projects this project depends on.
+		========================================================================
+	-->	
+	<target name="update-dependencies">
+	    <mkdir dir="${wardir}/WEB-INF/" />
+		<get dest="${wardir}/WEB-INF/install.xml" src="http://dev.entermediasoftware.com/projects/entermedia-server/install.xml"/>
+		<ant antfile="${wardir}/WEB-INF/install.xml" inheritAll="false" dir="${wardir}/WEB-INF/" target="default"/> 
+
+		<get dest="${wardir}/WEB-INF/install.xml" src="http://dev.entermediasoftware.com/projects/sundial/install.xml"/>
+		<ant antfile="${wardir}/WEB-INF/install.xml" inheritAll="false" dir="${wardir}/WEB-INF/" target="default"/> 
+
+	</target>
+
+  <target name="clean">
+     <delete dir="${build}"/>
+     <delete dir="${wardir}"/>
+  </target>
+  
+  <target name="source" depends="clean">
+	<mkdir dir="${deployDir}/builds/" />	
+  	<zip destfile="${deployDir}/builds/${appname}-${version}-src.zip"  basedir="." excludes="deploy/**, build/**" />
+  </target>
+
+	
+  <target name="compile" depends="clean">
+    <mkdir dir="${build}/src"/>
+    
+    <javac debug="true" destdir="${build}/src" srcdir="${src}" source="1.5" target="1.5">
+      <classpath>
+        <fileset dir="${lib}">
+          <include name="*.jar"/>
+          <include name="compile/*.jar"/>
+        </fileset>
+        <fileset dir="${wardir}/WEB-INF/lib/">
+            <include name="*.jar"/>
+          </fileset>
+      </classpath>
+      <include name="**"/>
+    </javac>
+
+    <mkdir dir="${build}/src"/>
+ 	<copy todir="${build}/src">
+		<fileset dir="${src}">
+		  <include name="*.xml"/>
+		</fileset>
+	</copy>
+
+  </target>
+    
+  	<!-- 
+		========================================================================
+		Jar classes for the main app, excluding unit tests.
+		========================================================================
+	-->	  
+	<target name="jar" depends="compile">
+	    <mkdir dir="${deployDir}/builds/"/> 
+
+		<jar jarfile="${deployDir}/builds/${versionedApp}.jar" basedir="${build}/src" >
+			<manifest>
+		    	<attribute name="Built-By" value="${user.name}"/>
+			    <attribute name="Implementation-Title" value="${appname}"/>
+			    <attribute name="Implementation-Version" value="${version}"/>
+			    <attribute name="Implementation-Vendor" value="${org}"/>
+		    </manifest>
+		</jar>
+  </target>
+    
+  	<!-- 
+		========================================================================
+		Create WAR
+		========================================================================
+	-->	
+    
+  <target name="junit">
+  	
+    <javac debug="true" destdir="${build}/src" srcdir="${testsrc}" source="1.5" target="1.5">
+      <classpath>
+        <fileset dir="${lib}">
+          <include name="*.jar"/>
+          <include name="compile/*.jar"/>
+        </fileset>
+        <fileset dir="${wardir}/WEB-INF/lib/">
+            <include name="*.jar"/>
+          </fileset>
+      </classpath>
+      <include name="**"/>
+    </javac>
+
+   	<property name="report" location="${deployDir}"/>
+    <mkdir dir="${report}"/> 
+  	<echo>JUnit report is located: ${report}/junit.xml</echo>
+
+  	<junit showoutput="true" printsummary="true" fork="true">
+  		<sysproperty key="oe.root.path" value="${basedir}/resources/test"/>
+  		 <classpath>
+      <fileset dir="${lib}">
+        <include name="**/*.jar"/>
+      </fileset>
+        <fileset dir="${wardir}/WEB-INF/lib/">
+            <include name="*.jar"/>
+          </fileset>
+  		 <pathelement location="${build}/src" />
+    </classpath>
+  		<test haltonerror="true" haltonfailure="true" name="com.openedit.editor.AllTests" outfile="./junit" todir="${report}">
+  			<formatter type="xml"/>
+  		</test>
+  	</junit>
+  </target>
+      
+    <target name="javadoc">
+        <javadoc destdir="${build}/javadoc"
+            access="public" notree="false" nonavbar="false"
+            noindex="false" splitindex="false" author="true" use="false" verbose="false"
+            version="true" nodeprecatedlist="false" nodeprecated="false"
+            doctitle="Open Edit API">
+          
+              <packageset dir="${src}" defaultexcludes="yes">
+			      <exclude name="com/**/*Test*"/>
+			      <exclude name="org/**/*Test*"/>
+			      <exclude name="com/openedit/users/filesystem/**"/>
+			      <exclude name="com/openedit/users/filesystem/**"/>
+			      <exclude name="org/jpublish/error/**"/>
+			      <exclude name="org/jpublish/page/**"/>
+			      <exclude name="org/jpublish/repository/**"/>
+			 </packageset>
+			<classpath>
+		      <fileset dir="${lib}">
+		        <include name="**/*.jar"/>
+		      </fileset>
+		    </classpath>
+
+		</javadoc>
+    </target>
+  
+  <target name="war" depends="jar">
+	<copy todir="${wardir}" preservelastmodified="true" >
+		<fileset dir="${webapp}">
+			<include name="*.*"/>
+			<include name="openedit/**"/>
+			<include name="base/**"/>
+			<include name="WEB-INF/**"/>												
+		</fileset>
+	</copy>
+  	<mkdir dir="${wardir}/WEB-INF/"/>
+
+	<delete dir="${webinf}/classes"/>
+	<delete dir="${webinf}/work"/>
+	  
+	  <war warfile="${deployDir}/builds/${appname}-${version}.war" webxml="${webapp}/WEB-INF/web.xml" basedir="${wardir}">
+  		<manifest>
+	    	<attribute name="Built-By" value="${user.name}"/>
+		    <attribute name="Implementation-Title" value="${appname}"/>
+		    <attribute name="Implementation-Version" value="${version}"/>
+		    <attribute name="Implementation-Vendor" value="${org}"/>
+	    </manifest>
+    	<lib dir="${deployDir}/builds/">
+	       <include name="${versionedApp}.jar"/>
+	    </lib>
+    	<lib dir="${lib}">
+	       <include name="*.jar"/>
+	    </lib>	
+	  </war>
+  </target>
+
+	<target name="publish" depends="javadoc, war">
+	  
+		<!-- publish results to anthill -->
+	 	<copy file="${deployDir}/builds/${appname}-${version}.war" overwrite="true"
+	        tofile="${deployDir}/ROOT.war"/>
+
+	 	<copy file="${etc}/install.js" overwrite="true"
+	        tofile="${deployDir}/install.js"/>
+		<copy file="${etc}/install.xml" overwrite="true"
+		        tofile="${deployDir}/install.xml"/>
+		<delete dir="${deployDir}/javadoc" />
+		<mkdir dir="${deployDir}/javadoc" />
+		<copy todir="${deployDir}/javadoc">
+			<fileset dir="${build}/javadoc" />
+		</copy>
+	</target>
+  
+</project>

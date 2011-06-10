@@ -1,0 +1,11 @@
+<page>
+
+<path-action name="JobTracking.searchMyTodos" >
+		<not>
+			<jobopen>false</jobopen>
+			<todolaststatus>closed</todolaststatus>
+			<todolaststatus>developmentstop</todolaststatus>
+		</not>
+</path-action>
+
+</page>

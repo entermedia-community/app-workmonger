@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<page>
+	<property name="hitsname">todohits</property>
+	<path-action name="JobTracking.searchTodos" />
+ 	<path-action name="JobTracking.loadTodoHits" />
+	<property name="show">showtodosearch</property>
+	<property name="menulabel">Todo Search</property>
+</page>

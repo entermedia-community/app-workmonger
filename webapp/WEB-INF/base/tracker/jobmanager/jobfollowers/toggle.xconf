@@ -1,0 +1,4 @@
+<page>
+	<path-action name="JobTracking.toggleEditPermission"/>
+	<inner-layout />
+</page>

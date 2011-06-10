@@ -1,0 +1,4 @@
+<page>
+	<path-action name="SpreadSheetModule.deleteColorRule" />
+	<inner-layout>/${catalogid}/jobmanager/jobspreadsheets/ssinnerlayout.html</inner-layout>
+</page>

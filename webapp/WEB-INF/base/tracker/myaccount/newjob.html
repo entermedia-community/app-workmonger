@@ -1,0 +1,17 @@
+<br>
+	<div class="oeinputform">
+	
+<p><label>Job Name:</label><input type="text" name="jobname.value" value="$job.name" /></p>
+			<input type="hidden" name="newjobid" value="$job.id" /> 
+    </div>                                    		</br>
+#set( $fields = $jobtracker.getFieldArchive() )
+$context.putPageValue("fieldArchive", $fields )	
+$context.putPageValue("fields", $fields )
+#set($searcher = $jobtracker.getJobSearcher())
+$context.putPageValue("searcher", $searcher)
+$context.putPageValue("data", $job)	
+$context.putPageValue("view", "jobdetailsclient")	
+		
+$pages.include("/system/components/xml/detaileditor.html", $context)
+		
+                                                                                                                                                              	</br>

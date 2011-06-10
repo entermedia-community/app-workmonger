@@ -1,0 +1,10 @@
+
+
+#if( $user )
+	$pages.include("$cataloghome/jobmanager/results.html")
+#else
+	<p><i>Not tracking any postings because you are not logged in.</i></p>
+#end
+$!oe-error $!error
+
+

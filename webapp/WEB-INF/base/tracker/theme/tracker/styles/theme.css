@@ -1,0 +1,59 @@
+#joblisting 
+{
+	list-style-type: none; padding-left: 0;
+	margin-left: 0;
+   	text-decoration: none;
+   	background-color: white;
+}
+.joblistselected
+{
+	margin:  0px;   	
+	list-style-type: none;    
+   	text-decoration: none;
+   	background-color: #CCCCF9;
+   	padding: 2px 2px 2px 2px;
+}
+.joblistselected A
+{
+	text-decoration: none;
+	white-space:nowrap; 
+}
+#joblisting A 
+{
+	text-decoration: none;
+	display: block;
+	padding-left: 8px;
+	padding-right: 4px;
+	white-space:nowrap; 
+}
+#joblisting A:hover 
+{
+   	background-color: #E0E0E0;
+   	white-space:nowrap; 
+}
+
+
+.jobhourslist table  { border-collapse: collapse }
+
+.jobhourslist th{
+	text-align: left;
+	border-bottom: 3px solid #DCDCDC;
+}
+
+.jobhourslist .even{
+	background-color: #EEEEEE;
+}
+
+.jobhourslist .last{
+	border-top: #DCDCDC solid 2px;
+	 font-weight: bold;
+}
+
+.jobhoursform table{
+	width:100%;
+	border:#DCDCDC solid 1px;
+	padding: 5px 5px 5px 5px;
+}
+
+#oetrackertable{
+}

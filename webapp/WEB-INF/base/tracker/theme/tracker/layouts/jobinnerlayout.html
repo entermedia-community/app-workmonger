@@ -1,0 +1,22 @@
+#if( $job )
+
+	<a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$job.id"><span>Issues</span></a> 
+	#if( $cantrackeradmin || $job.isEditor($user) )
+		| <a href="$home$cataloghome/jobmanager/addnew.html?jobid=$job.id" ><span>Add New Issue</span></a>
+		| <a href="$home$cataloghome/jobmanager/jobspreadsheets/index.html?jobid=$job.id&sspostfix=$job.id" ><span>Spreadsheets</span></a>
+		| <a href="$home$cataloghome/jobmanager/jobfiles.html?jobid=$job.id"><span>Files</span></a>
+		| <a href="$home$cataloghome/jobmanager/chart/index.html?jobid=$job.id" ><span>Chart</span></a>
+		| <a href="$home$cataloghome/jobmanager/joboverview.html?jobid=$job.id" ><span>Budget</span></a>
+		| <a href="$home$cataloghome/jobmanager/jobedit.html?jobid=$job.id"><span>Settings</span></a>
+		| <a href="$home$cataloghome/jobmanager/jobfollowers/index.html?jobid=$job.id">Members</a>
+		| <a href="$home$cataloghome/jobmanager/jobpermissions.html?jobid=$job.id">Groups</a>
+		| <a href="$home$cataloghome/jobmanager/reports/generatereport.html?jobid=$job.id">Reports</a>
+		
+	#end
+
+	$pages.includeContent()
+		
+
+#else
+$pages.includeContent()
+#end

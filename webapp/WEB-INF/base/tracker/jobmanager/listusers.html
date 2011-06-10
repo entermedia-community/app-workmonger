@@ -1,0 +1,28 @@
+<h2>Shared Groups</h2>
+
+<table width="100%">
+	<tr>
+		<th>Group Name</th>
+		<th>Group Description</th>
+		<th>Subscriber Count</th>
+	</tr>
+
+    #foreach ( $hit in $visiblejobs )
+	#if( $even)
+	<tr >
+	#set( $even = false)
+	#else
+	<tr style="background-color: #EEEEEE;">
+	#set( $even = true)
+	#end	
+	<td nowrap><a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=${hit.id}">#if( $hit.name ) $hit.name #else $userManager.getScreenName($hit.assignedto)#end</a></div></td>
+
+	<td>$!hit.shortdescription</td>
+	
+	<td>$jobtracker.getJobArchive().getJobById($hit.getId()).getSubscriberCount()</td>
+	</tr>
+    #end
+
+
+
+</table>

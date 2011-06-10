@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+	<property name="subsection">jobspreadsheets</property>
+	<property name="spreadsheetdir">/WEB-INF/data/${catalogid}/sheets/</property>
+	<property name="fallbackdirectory">/WEB-INF/base/entermedia/tools/spreadsheet</property>
+	<property name="ssedithome">/${catalogid}/jobmanager/jobspreadsheets</property>
+	<inner-layout>/${catalogid}/jobmanager/jobspreadsheets/ssinnerlayout.html</inner-layout>
+	<path-action name="User.getUserManager" />
+		<path-action name="SpreadSheetModule.listSheets" />
+	
+</page>
+

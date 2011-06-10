@@ -1,0 +1,14 @@
+<div class="textheader TEXTHEADER" >Todo Search</div>	
+
+<br>
+$pages.include("$cataloghome/common/crumbs.html")
+
+
+$pages.include("./todoresults.html")
+
+#if( $context.getRequestParameter("showclosedissues") )
+<p>Show only <a href="?showclosedissues=true">closed Issues</a></p>
+#end
+#if ( $todohits && $todohits.size() > 0 )
+Import these results as <a href='$home$cataloghome/jobs/reports/exporttodo.csv'>CSV tab delimited</a> for Excel.
+#end

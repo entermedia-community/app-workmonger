@@ -1,0 +1,22 @@
+<h2>Invitations Sent</h2>
+
+<table class="stripped">
+#foreach( $invite in $pending)
+<tr>
+<td>
+$!searcherManager.getData($catalogid,"invitestatus",$invite.invitestatus)
+</td>
+
+<td>
+$!context.getDate($pending.getDateValue($invite,"datesent") )
+</td>
+
+
+<td>
+$invite.email 
+
+#if( $invite.addeduser ) ID: $invite.addeduser : $!userManager.getScreenName( $invite.addeduser ) #end
+</td>
+</tr>
+#end
+</table>

@@ -1,0 +1,8 @@
+#set($details =  $jobtracker.getTodoDataProperties("todoresults",$user))
+#set($todos = $job.closedTodos)
+$context.putPageValue("todos",$todos)	
+$context.putPageValue("details",$details)
+$pages.include("$cataloghome/jobmanager/todos/todolist.html",$context)
+
+<p><a class="ajax" targetdiv="todotable" href="$home$cataloghome/jobmanager/todos/updateranks.html?oemaxlevel=1&jobid=$job.id">
+View detailed list</a></p>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page>
+
+
+<property name="hitsname">jobhits</property>
+
+<property name="show">showjobsearch</property>
+<property name="menulabel">Job Search</property>
+
+<path-action name="JobTracking.searchJobs" />
+ <path-action name="JobTracking.loadHits" />
+
+</page>

@@ -1,0 +1,4 @@
+<page>
+	<property name="fallbackdirectory">/system/components/authentication</property>
+	<property name="loginroot">/${catalogid}/authentication</property>
+</page>

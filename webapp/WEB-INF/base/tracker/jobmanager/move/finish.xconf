@@ -1,0 +1,4 @@
+<page>
+	<path-action name="JobTracking.moveTodo" />
+	<property name="section">jobmanagersection</property>
+</page>

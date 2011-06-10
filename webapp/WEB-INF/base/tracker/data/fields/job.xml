@@ -1,0 +1,18 @@
+<properties>
+
+<property id="description" >Keyword</property>
+<property id="name"  index="true" editable="true">Project Name</property>
+<property id="hidden"  index="true" stored="true" editable="true" type="boolean">Private Project</property>
+<property id="jobtype" editable="true" index="true" stored="true" viewtype="list" listid="jobtype">Project Type</property>
+<property id="shortdescription" keyword="true" index="true" stored="true" editable="true">Description</property>
+<property id="contact" keyword="true" stored="true" editable="true">Contact</property>
+<property id="assignedto" index="true" viewtype="list" catalogid="openedit" listid="user" keyword="true" stored="true" editable="true" query="groups:users">Project Owner</property>
+<property id="jobopen" viewtype="list" index="true" stored="true"  editable="true" listid="jobopen">Status</property>
+<property id="jobcreationdate" editable="true" index="true" stored="true"  type="date" format="MM/dd/yyyy" >Created</property>
+<property id="createdby" keyword="true" stored="true" index="true" editable="false">Created By</property>
+<property id="priority" editable="true" index="true" type="list" listid="priority">Priority</property>
+<property id="passwords" editable="false" index="true" >Passwords</property>
+<property id="hasimage" editable="true" index="true" stored="true">Has Image</property>
+<property id="subscribercount" editable="true" index="true" stored="true">Subscriber Count</property>
+
+</properties>

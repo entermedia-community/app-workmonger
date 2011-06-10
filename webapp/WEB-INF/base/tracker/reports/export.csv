@@ -1,0 +1,12 @@
+#set($fields = $jobtracker.getFieldArchive())
+#set($details =  $fields.getPropertyDetails("job").getDetails())
+#set($delivdetails =  $fields.getPropertyDetails("todo").getDetails())
+#set( $slist = $fields.getProperties("deliverablestatus") ) 
+#foreach( $detail in $details )$detail.getText()	#end#foreach( $delivdetail in $delivdetails )$delivdetail.getText()	#end
+
+#foreach ( $hit in $jobhits.getAllHits() )#set( $job = $jobtracker.getJobArchive().getJobById($hit.id,false) )
+#foreach( $deliv in $job.todos )
+#foreach( $detail in $details )$!job.get($detail.getId())	#end
+#foreach( $delivdetail in $delivdetails )#if( $delivdetail.getId().equals("laststatus"))$!deliv.getLastStatus()#else$!deliv.get($delivdetail.getId())#end	#end
+
+#end#end

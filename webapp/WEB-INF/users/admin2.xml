@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<user>
+  <user-name>admin2</user-name>
+  <password>DES:t60lK3sM2SE=</password>
+  <creation-date>1201119250962</creation-date>
+  <properties>
+    <property name="lastName" value="Administrator2"/>
+    <property name="email" value="pega@localhost"/>
+    <property name="firstName" value="The2"/>
+  </properties>
+  <group id="administrators"/>
+</user>

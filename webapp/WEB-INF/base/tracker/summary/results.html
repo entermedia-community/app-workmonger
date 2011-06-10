@@ -1,0 +1,34 @@
+	
+	#if( $todohits && $todohits.size() > 0 )
+		
+		#set($showall = $context.getRequestParameter("showall"))
+		#if($showall && $showall == "true")
+			#set($showhits = $todohits.getAllHits())
+		#else	
+			 #set($showhits = $todohits.getPageOfHits())
+		#end	
+		#foreach( $hit in $showhits)
+			#if($velocityCount <= 5)
+				<div  style="border-bottom: 1px dashed #aaaaaa;padding: 5px;">
+	
+					<a style="text-decoration: none;" href="$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$hit.jobid&todoid=$hit.id" >
+	
+						<b>#esc($hit.get("id")) : #esc(${hit.name})</b> 
+					</a>
+					#if($hit.get("statuscount") != "1")
+						#esc($!hit.get("todofirststatussummary"))
+					#end
+						 <span style="font-style:italic;">reported by:</span> <a style="text-decoration: none;" href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$hit.jobid" >
+						#if( $hit.jobname)#esc($hit.jobname) #else $userManager.getScreenName($hit.jobassignedto)#end
+					 	<br/>
+						</a>
+					#esc($!hit.get("todolaststatussummary"))  - #esc($!userManager.getScreenName($hit.get("todolaststatususer")))
+					<i>posted $!todohits.toDateTime($hit.get("todolaststatusdate")) </i>
+				</div>				
+			#end
+		#end
+		##$pages.include("$home$cataloghome/jobmanager/pages.html", $context)
+		
+	#else
+		<p>No issues found</p>
+	#end

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<user>
+  <user-name>guesti</user-name>
+  <password>DES:aflIT2wN830=</password>
+  <creation-date>1201119193077</creation-date>
+  <properties>
+    <property name="lastName" value="wr"/>
+    <property name="Phone1" value="wr"/>
+    <property name="email" value="veritopaz@gmail.com"/>
+    <property name="Company" value="wr"/>
+    <property name="firstName" value="ewwerwer"/>
+  </properties>
+  <group id="guest"/>
+</user>

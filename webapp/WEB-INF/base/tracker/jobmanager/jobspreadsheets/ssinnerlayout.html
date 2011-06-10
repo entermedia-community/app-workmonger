@@ -1,0 +1,19 @@
+#if( $sheet )
+	<h2>Spreadsheet Editor</h2>
+	#if($caneditspreadsheet)
+	<p align="right"><a href="$home$cataloghome/jobmanager/jobspreadsheets/import.html?jobid=$job.id&sheet=$sheet.id">Import Spreadsheet</a> |
+	<a href="$home$cataloghome/jobmanager/jobspreadsheets/export.csv?sheet=$sheet.id">Export Spreadsheet as CSV</a></p>
+	#end
+	<p>
+	<a href="$home$cataloghome/jobmanager/jobspreadsheets/index.html?jobid=$job.id">All Spreadsheets</a>  > $sheet.name </a>
+	</p>
+	#if($caneditspreadsheet)
+	<br/>
+	$pages.include("$cataloghome/jobmanager/jobspreadsheets/colorrules/index.html", $context)
+	<br/>
+	#end
+#end
+
+<br />
+$pages.includeContent()
+

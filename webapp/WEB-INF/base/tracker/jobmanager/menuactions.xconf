@@ -1,0 +1,11 @@
+<page>
+
+	<property name="text.menulabel">
+		<value>Postings</value>
+	</property>
+	
+	<property name="show">jobactions</property>
+  <layout />
+  <inner-layout />
+
+</page>

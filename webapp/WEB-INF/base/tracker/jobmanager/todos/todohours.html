@@ -1,0 +1,99 @@
+<script type="text/javascript">
+function delconfirm()
+{
+var ans = confirm("Are you sure you want to continue?");
+if (!ans){
+	return false;
+}
+return true;
+}
+</script>
+
+<script type="text/javascript" src="$home/openedit/javascript/datetimepicker.js"></script>
+
+#set ( $dateformat = "MM/dd/yyyy" )
+#if( $page.isPropertyTrue("showtimetracking") )
+#if( $todo )
+
+<h2>$page.get("text.trackingname") Tracking:</h2>
+#if ( $todo.getTimeEntries().size() > 0 )
+
+<div class="jobhourslist">
+<table width="100%" cellspacing="1" cellpadding="1" border="0">
+        <tr id ="row1">
+            <th width="20%">Date</th>
+            <th width="20%">Person</th>
+            <th width="10%">$page.get("text.trackingname")</th>
+            <th width="40%">Description</th>
+            <th width="10%">&nbsp;</th>
+        </tr>
+        <br/>
+        
+        <tbody>
+      #set( $even = "true" )
+      #foreach($entry in $todo.getTimeEntries())
+        #if ( $even == "false" )
+			<tr class="even">
+			#set( $even = "true" )
+		#else
+			<tr>
+			#set( $even = "false" )
+        #end    
+            <td>$entry.getFormatedDate()</td>
+            <td>$entry.user</td>
+            <td>$entry.hours</td>
+            <td>$!entry.description</td>
+      		<td><a onclick="return delconfirm();" href="$home$cataloghome/jobmanager/todos/jobtimedelete.html?jobid=$job.id&todoid=$todo.id&timeid=$entry.id"><img border = "0" src="$home$cataloghome/images/trash.gif" alt="delete"></a></td>
+        </tr>
+
+        #end
+        <tr class="last">
+            <td>&nbsp;</td>
+            <td style="text-align:right;">Total hours to date:</td>
+            <td>$todo.getHours()</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+#else
+No time entries have been added yet 
+#end
+
+
+</div>
+
+#if( $user )
+<br><br>
+<div class="jobhoursform">
+<form name="hoursform" action="$home$cataloghome/jobmanager/todos/jobtimesave.html" method="post">
+<table>
+	<tr>
+	<td>Date:</td>
+	<td><input name="date" id="date" value="$!today" size="10" type="text">
+	<a style="padding-right: 5px;"	href="javascript:NewCal('date','mmddyyyy')"><img src="$home$cataloghome/images/cal.gif" width="16"	height="16" border="0" alt="Pick a date"></a></td>
+	</tr>
+	
+	<tr>
+	<td>Hours:</td>
+	<td><input type="text" name="hours" size="3"/><br/></td>
+	</tr>
+	
+	<tr>
+	<td>Description:</td>
+	<td><input type="text" name="description" size="75" /></td>
+	</tr>
+	
+	<tr>
+	<td>&nbsp;</td>
+	<td><input type="submit" value="Add New Time Entry"/></td>
+	</tr>
+</table>
+		<input type="hidden" name="todoid" value="$todo.id"/>
+	    <input type="hidden" name="jobid" value="$job.id"/>
+	    <input type="hidden" name="dateformat" value="$dateformat"/>
+</form>
+</div>
+#end
+#end
+#end

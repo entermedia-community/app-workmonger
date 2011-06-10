@@ -1,0 +1,8 @@
+<page>
+	<generator name="velocity" />
+	<property name="hitsname">jobhits</property>
+	<path-action name="JobTracking.loadHits" alltypes="true" />
+	<inner-layout/>
+	<layout/>
+	<property name="editable">false</property>
+</page>

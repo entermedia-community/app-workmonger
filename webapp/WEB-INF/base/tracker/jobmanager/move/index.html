@@ -1,0 +1,29 @@
+<h2>Move Selected Tasks</h2>
+
+#set( $selected = $context.getRequestParameters("todoselected") )
+#if( $selected)
+<p>Please select the project you want to move tasks into:</p>
+
+<form name="contactform" style="width: 250px;"  method="post" action="$home$cataloghome/jobmanager/move/finish.html">
+
+#foreach( $todoid in $context.getRequestParameters("todoselected") )
+	<input name="todoselected" type="hidden" value="$todoid" />
+#end
+	<input name="jobid" type="hidden" value="$job.id" />
+	
+#set($jobfields = $jobtracker.getJobDataProperties("openjobs", $user ))
+<select name="jobiddest" > #set( $jobid = $context.getRequestParameter("jobid"))
+	<option value=""></option>			
+	#foreach ( $hit in $jobs.getAllHits() )
+		<option value="$hit.id" #if( $jobid && $jobid == $hit.id ) selected #end onclick="$('#newjob').load('$home$cataloghome/common/blank.html?oemaxlevel=1');">$hit.name</option>
+	#end
+</select>
+<br/><br>
+<div id="newjob" >
+</div>
+                                                                                              </br>
+<input type="submit" value="Submit" />	
+</form>
+#else
+<p>No tasks selected</p>
+#end

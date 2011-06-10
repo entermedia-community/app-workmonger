@@ -1,0 +1,26 @@
+#if( $todos.size() > 0 )
+	
+	<table cellspacing="10"  cellpadding="10"  width="100%">
+			#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"todolaststatus") )
+	
+	#foreach ( $hit in $todos ) 
+		#set( $last = $hit.lastStatus )
+		<tr >
+			<td style="border-bottom: 1px dashed #aaaaaa;padding: 5px;">
+
+					<a style="text-decoration: none;" href="$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$hit.jobid&todoid=$hit.id" >
+
+						<b>#esc(${hit.name})&nbsp; </b> - $hit.id		</a>		$slist.get($last.getType()) due on $!context.getDate($hit.duedate)
+					 	<br/>
+						</a>
+					#esc($last.getNoteSnip(200))  - #esc($last.getUser().getScreenName())
+					<i>posted $last.getFormatedDate()</i> 
+			</td>
+		</tr>
+	#end
+	</table> 
+	<p>$todos.size() Topics</p>
+	
+#else
+	<p>No topics found</p>
+#end

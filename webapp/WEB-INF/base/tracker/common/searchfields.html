@@ -1,0 +1,103 @@
+
+#if( !$sortdetails)
+#set($sortdetails =  $fields)
+#end
+#set($usestartswith = $page.isPropertyTrue('usestartswith'))
+#set( $hits = $todohits	 )
+	<table name="nav1" id="tableNav1" summary="nav1" border="0"
+		cellpadding="0" cellspacing="0" width="60%">
+			<tr>
+#if( $jobs )
+				<td align="left" valign="top" >
+				<div class="searchlabel">Job</div>
+				</td>
+				<td> <select name="jobid"><option ></option>
+					#set( $inputed = "$!hits.getInput('jobid')" )
+	#foreach ( $hit in $jobs.getAllHits() )
+		<option value="$hit.id" #if( $inputed == $hit.id) selected #end>$hit.name</option>
+	#end
+	</select>
+					</td>
+#end					
+				#foreach( $searchItem in $fields)
+				<td align="left" valign="top" nowrap>
+					#set( $inputed = "$!hits.getInput($searchItem.getId())")
+				<div class="searchlabel">
+					#if($searchItem.getId() == "customer")
+					#else
+					${searchItem.getText()}
+					<input name="field" value="${searchItem.getId()}" type="hidden">
+					
+					#if($searchItem.getId() == "availablity")
+					 
+						<input name="operation" type="hidden" value="matches" />
+						<select name="availability.value">
+						<option value="yes">Yes</option>
+						<option value="no">No</option>
+						</select>
+					
+					#elseif($searchItem.getId() == "born")
+					   
+						<input name="operation" type="hidden" value="betweenages" />
+						<input name="type" type="hidden" value="age" />
+						<input name="born.value" type="hidden" value="between" />
+						<input name="${searchItem.getId()}.after" id="datevalue${searchItem.id}" value="$!hits.getInput("born.after")"
+						size="3" type="text"> 
+					
+					 and <input name="${searchItem.getId()}.before" id="aftervalue${searchItem.id}" value="$!hits.getInput("born.before")"
+						size="3" type="text">
+					#elseif($searchItem.getId() == "todolaststatususer")
+						
+					#set( $users = $usermanager.getUsersInGroup("notify") )
+						<input name="operation" type="hidden" value="matches" />
+						<select name="${searchItem.getId()}.value">
+							<option value=""></option>
+							#foreach( $auser in $users )
+							<option value="$auser.userName" #if( $inputed && $auser.userName && $auser.userName == $inputed ) selected #end>
+								$auser
+							</option>
+							#end
+						</select>
+					#elseif( $searchItem.isList() )
+						#set( $types = $jobtracker.getSearcherManager().getList(${searchItem}) )						
+						<input name="operation" type="hidden" value="matches" />
+						<select name="${searchItem.getId()}.value">
+							<option value=""></option>
+							#foreach( $row in $types )
+							<option value="$row.id" #if( $inputed && $row.id && $row.id == $inputed ) selected #end>
+								$row
+							</option>
+							#end
+						</select>
+					#elseif ($searchItem.isDate())
+					<select name="operation">
+						<option value="after">After</option>
+						<option value="before">Before</option>
+					</select>				
+					<input name="${searchItem.getId()}.value" id="datevalue${searchItem.id}" value="$!inputed" size="8" type="text">
+					#else
+					#if( $usestartswith)
+					<input name="operation" value="startswith" type="hidden">						
+					#else
+					<input name="operation" value="matches" type="hidden">
+					#end
+					<input name="${searchItem.getId()}.value" value="$!hits.getInput($searchItem.getId())"
+						size="15" type="text">
+					 
+					#end
+				#end
+				</div>				
+				#end
+				</div>
+		</tr>
+	</table>
+<p>		Sort by: <select name="sortby"><option value=""></option>
+			
+			#foreach( $searchItem in $sortdetails )
+			<option value="${searchItem.getId()}Up" #if( $hits.getOrdering() && $hits.getOrdering() == "${searchItem.getId()}Up" ) selected #end >${searchItem.getText()}#if($searchItem.isDate()) [Oldest First] #else [A-Z]#end</option>
+			<option value="${searchItem.getId()}Down" #if( $hits.getOrdering() && $hits.getOrdering() == "${searchItem.getId()}Down" ) selected #end >${searchItem.getText()}#if($searchItem.isDate()) [Newest First] #else [Z-A]#end</option>
+			#end
+			<option value="random" #if( $hits.getOrdering() && $hits.getOrdering() == "random" ) selected #end >Random</option>			
+			</select>
+				<input type="submit" value="Go" />
+</p>	

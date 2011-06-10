@@ -1,0 +1,3 @@
+<page>
+	<Xpath-action name="JobTracking.importJobs"/>
+</page>

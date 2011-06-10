@@ -1,0 +1,6 @@
+<page>
+<property name="oemaxlevel">1</property>
+<property name="hitsname">todohits</property>
+<property name="defaultsort">subscribercountUp</property>
+<page-action name="JobTracking.loadOpenTodos" />
+</page>

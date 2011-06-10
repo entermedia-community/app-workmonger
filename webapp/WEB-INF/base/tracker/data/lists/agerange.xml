@@ -1,0 +1,8 @@
+<properties>
+	<property id="baby">Baby</property>
+	<property id="child" >Child</property>
+	<property id="senior" >Senior</property>
+	<property id="teen" >Teen</property>
+	
+	
+</properties>

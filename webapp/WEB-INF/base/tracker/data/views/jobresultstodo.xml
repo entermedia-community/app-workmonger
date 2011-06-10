@@ -1,0 +1,8 @@
+<properties>
+
+<property id="name" />
+<property id="waitingon" />
+<property id="hours" />
+<property id="todolaststatusdate" />
+
+</properties>

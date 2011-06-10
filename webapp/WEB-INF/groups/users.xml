@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<group>
+  <group-name>users</group-name>
+  <permissions>
+    <permission>download</permission>
+    <permission>detailview</permission>
+    <permission>collections</permission>
+    <permission>viewarchive</permission>
+    <permission>preview</permission>
+    <permission>zip</permission>
+	<permission>savecollection</permission>
+    <permission>downloadfpo</permission>
+    <permission>capturehistory</permission>
+    <permission>includerecords:PII_site:true</permission>    
+  </permissions>
+  <properties/>
+</group>

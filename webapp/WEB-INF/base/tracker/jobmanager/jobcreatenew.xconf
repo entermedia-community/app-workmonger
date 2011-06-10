@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+	<path-action name="JobTracking.createNewJob" />
+	<inner-layout>${themeprefix}/tracker/layouts/trackerlayout.html</inner-layout>
+	<permission name="view">
+		<user />
+	</permission>
+</page>
+

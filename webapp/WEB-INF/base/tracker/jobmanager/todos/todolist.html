@@ -1,0 +1,23 @@
+
+<div id="todolist">
+#if( $context.getRequestParameter("type") && $context.getRequestParameter("type") == "closed" )
+	<div align="right"><A href="#" onclick="jQuery( '#todolist').load('$home$cataloghome/jobmanager/todos/todolist.html?jobid=$job.id&oemaxlevel=1'); return false;">View Open Posts</a></div>
+#elseif( $job.getClosedTodos().size() > 0)
+	<div align="right"><A href="#" onclick="jQuery('#todolist').load('$home$cataloghome/jobmanager/todos/todolist.html?jobid=$job.id&type=closed&oemaxlevel=1'); return false;">View Closed Posts</a></div>
+#end
+	
+#set($details =  $jobtracker.getTodoDataProperties("todosummary",$user))
+$context.putPageValue("details",$details)	
+
+#set($todos = $job.getTodos())
+#set( $type = $context.getRequestParameter("type"))
+#if($type &&  $type == "closed")
+$context.putPageValue("todos",$job.getClosedTodos() )	
+#else
+$context.putPageValue("todos",$job.getInProgressTodos() )	
+	
+#end
+$context.putPageValue("type","alltodos")	
+$pages.include("$cataloghome/jobmanager/todos/todosummary.html",$context)
+
+</div>

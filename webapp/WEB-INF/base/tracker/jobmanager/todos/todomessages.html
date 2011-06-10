@@ -1,0 +1,146 @@
+<div id="todoworkarea">
+
+<script type="text/javascript">
+function delconfirm()
+{
+var ans = confirm("Are you sure you want to delete this message?");
+if (!ans){
+	return false;
+}
+return true;
+}
+</script>
+#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"todolaststatus") )
+
+<table id="oetrackertable" cellspacing="4" cellpadding="1" border="0">
+    <tbody>
+        <tr>
+            <th>Status</th>
+            <th>Person</th>
+            <th>Date</th>
+             <th>Message</th>
+             #set( $canedit = $cantrackeradmin || $job.canEdit($user) )
+#if( $canedit )
+        	<th>Delete</th>
+#end
+        </tr>
+        #foreach( $status in $todo.getStatusChanges() )
+        
+        #if( $even ) #set( $even = false )
+		<tr>
+		#else
+		<tr style="background-color: #EEEEEE;">
+		#set( $even = true )
+		#end
+      		<td align="left" nowrap >$!slist.get($status.type)</td>
+            <td nowrap >$!status.user</td>
+            <td nowrap >$!status.getFormatedDate()</td>
+            #set($wrap = 70)
+            <td><pre>#escwrap($status.note $wrap)</pre>
+#if( $status.getAttachmentPath())
+[ <a href="$home$status.getAttachmentPath()" >$!url_util.getPathUtilities().extractFileName($status.getAttachmentPath())</a> ]
+#end
+             </td>
+#if( $canedit )
+			<td><a onclick="return delconfirm();" href="$home$cataloghome/jobmanager/todos/todomessagedelete.html?jobid=$job.id&todoid=$todo.id&messageid=$status.id&origURL=$content.path"><img border="0" src="$home$cataloghome/images/trash.gif"></td>
+#end			
+        </tr>
+        #end
+    </tbody>
+</table>
+<a id="BOTTOM" />
+
+#if($canpost)
+	<form name="newstatus"  method="post" action="$cataloghome/jobmanager/jobtodos.html">
+		<h3>Add Status/Reply:</h3>
+
+		#set( $type = $todo.getLastStatus().getType())
+		#if( !$type )
+		#set( $type = "receivedonline")
+		#end
+	
+	#if($cantrackeradmin ||  $job.canEdit( $user )  )
+		Status:
+		<br>
+
+		<select name="todostatus">
+			<option value=""></option>		
+		#foreach( $status in $slist.keys() )		
+			<option value="$status" #if( $type == $status) selected #end>$slist.get($status)</option>
+		#end
+		</select><br>
+	#else
+		<input type="hidden" name="todostatus" value="$type" />
+	#end		
+		Message:<br> <textarea name="note" cols="75" rows="10"></textarea><br>
+		<input type="hidden" name="todoid" value="$todo.id" />
+		<input type="hidden" name="jobid" value="$job.id" />
+		<input type="hidden" name="messageid" value="$newid" />
+		#set( $listing = $jobtracker.getJobNotify().findUsersFor($job))
+	   	#if($job.getName())
+	   		#set($jobname = $job.getName())
+	   	#else
+	   		#set($jobname = "${userManager.getScreenName($todo.getCreatedByUser())}'s Issues")
+	   	#end
+	   	#if($todo.getCreatedByUser() != $user)
+	   		#if($job.hasUser($user.userName) == "true" || $job.canEdit($user) )
+	   			
+	   		#else
+	   			<label><input type="checkbox" value="true" name="subscribe" /></label> Notify me 
+	   		#end 
+	   	#end
+	<p>   	 
+	#if( $cantrackeradmin )
+		<input type="checkbox" name="notify" value="true"/> Send Notifications<br>
+	
+	#else
+	<input type="hidden" name="notify" value="true"/>
+	#end
+	#if( $cantrackeradmin ) ##Only show list to admins
+		<label>Notification List: </label>	
+		#foreach( $email in $listing ) $!email.email #end	
+	#end
+	</p>
+	<br/>
+	</form>
+	
+	##Use Ajax to upload in the background?
+	#if( $user.hasPermission("oe.edit.upload"))
+	<div id="savemessage">	
+		
+	<form id="uploadwizard" name="uploadwizard" target="uploadtarget" method="post" enctype="multipart/form-data" action="$home$cataloghome/jobmanager/todos/savetodoupload.html" >
+	<input type="hidden" name="jobid" value="$job.id"/>
+	<input type="hidden" name="todoid" value="$todo.id" />
+	<input type="hidden" name="messageid" value="$newid" />
+	<input type="hidden" name="oemaxlevel" value="1" />
+	
+	<input type="hidden" name="origURL" value="$content.path"/>
+	
+	
+	Upload Attachment: <input type="file" size="40" onchange="startUpload();" name="file"> $!todo.attachpath
+	
+	</form>
+	</div>
+	#end
+	
+	<iframe id="uploadtarget" name="uploadtarget" src="" style="display:none;width:400px;height:80px;border:0px solid #fff;"></iframe>
+	
+	<input type="button" value="Save" onclick="postform();" /> $!message
+#end
+##end of canpost check
+<script type="text/javascript" >
+	startUpload = function()
+	{
+		document.uploadwizard.submit();
+		document.uploadwizard.style.display = "none";		
+		document.getElementById("uploadtarget").style.display = "block";		
+	}
+	postform = function()
+	{
+		document.newstatus.submit();
+		//var openpath = "$home$cataloghome/jobmanager/todos/savetodoupload.html";		
+		//new Ajax.Updater("savemessage", openpath, { method: 'post',parameters: $('uploadwizard').serialize(true), evalScripts: true });	
+	}
+</script>
+
+</div>

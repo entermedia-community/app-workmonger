@@ -1,0 +1,71 @@
+<h2>Report New Issue</h2>
+#if($canpost)
+<form name="contactform"   method="post" >
+	<label>Subject: $!errors.get("summary")</label><input type="text" name="summary" value="$!context.getRequestParameter('summary')"size="35" />
+	
+		<br>Details: $!errors.get("note")<br>
+		<textarea type="text" name="note" cols="75" rows="5">$!context.getRequestParameter('note')</textarea><br>
+	
+$!oe-error $!error
+
+<input type="hidden" name="edittodo" value="$!context.getRequestParameter('edittodo')" />
+
+#if( $$cantrackeradmin )
+<input type="checkbox" value="true" name="notify"/> Notify
+#else
+<input type="hidden" value="true" name="notify"/>
+#end	
+
+<p>Type:
+#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"todolaststatus") )
+
+#set( $type = "receivedonline" )
+<select name="todostatus">
+		<option value=""></option>		
+	#foreach( $status in $slist.keys() )		
+		<option value="$status" #if( $type == $status) selected #end>$slist.get($status)</option>
+	#end
+</select><br>
+
+</p>
+
+
+
+<p>Area:
+#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"todoarea") )
+
+<select name="todoarea">
+		<option value=""></option>		
+	#foreach( $status in $slist.keys() )		
+		<option value="$status" #if( $type == $status) selected #end>$slist.get($status)</option>
+	#end
+</select><br>
+
+</p>
+
+
+
+
+<p>Status:
+#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"currentstate") )
+
+<select name="todoarea">
+		<option value=""></option>		
+	#foreach( $status in $slist.keys() )		
+		<option value="$status" #if( $type == $status) selected #end>$slist.get($status)</option>
+	#end
+</select><br>
+
+</p>
+
+
+
+<input type="hidden" name="edittodo" value="$!context.getRequestParameter('edittodo')" />
+	 
+	 
+</p>
+<p><input type="submit" value="Post" />	</p><br/>
+</form>
+#else
+<p><i>You do not have permissions to add new postings.<br/>
+#end

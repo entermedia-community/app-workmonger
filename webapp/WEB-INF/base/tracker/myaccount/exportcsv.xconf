@@ -1,0 +1,14 @@
+<page>
+	<path-action name="JobTracking.getJobTracker" alltypes="true"/>
+	<path-action name="JobTracking.searchMyTodos" alltypes="true">
+		<not>
+			<jobopen>false</jobopen>
+		</not>
+	</path-action>
+	<page-action name="JobTracking.loadTodoHits" alltypes="true"/>
+	<page-action name="User.getUserManager" alltypes="true"/>
+	<page-action name="Script.run" alltypes="true">
+		<script>./exportcsv.bsh</script>
+	</page-action>
+	<property name="virtual">true</property>
+</page>

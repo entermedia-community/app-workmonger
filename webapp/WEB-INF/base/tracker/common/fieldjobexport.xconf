@@ -1,0 +1,11 @@
+<page>
+	<property name="hitsname">jobhits</property>
+	<path-action name="JobTracking.getJobTracker" alltypes="true"/>
+	<path-action name="JobTracking.searchJobs" alltypes="true"/>
+ 	<path-action name="JobTracking.loadHits" alltypes="true"/>
+	<page-action name="User.getUserManager" alltypes="true"/>
+	<page-action name="Script.run" alltypes="true">
+		<script>./fieldjobexport.bsh</script>
+	</page-action>
+	<property name="virtual">true</property>
+</page>

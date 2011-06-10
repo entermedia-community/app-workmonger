@@ -1,0 +1,7 @@
+<page>
+
+  <property name="from">support@openedit.org</property>
+  <property name="emailsubject">[Tracker] </property>
+   <page-action name="PageValue.loadPageVariable"  bean="searcherManager" />
+
+</page>

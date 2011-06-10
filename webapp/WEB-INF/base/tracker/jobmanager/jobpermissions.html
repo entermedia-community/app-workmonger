@@ -1,0 +1,14 @@
+<br>
+<h2>Groups</h2>
+
+<form method="post" name="permissionform" />
+<div>
+#foreach ( $group in $UserManager.getGroups() )
+	<div><input name="group" type="checkbox" value="$group.id" #if( $job.hasGroup($group.getId()))checked#end /><A href="$home/entermedia/settings/usermanager/groups/modifygroup.html?groupid=$group.id">$group.name</a></div>
+#end
+</div>
+	<input type="hidden" name="save" value="true" />
+#if( $savedok )<b>saved ok</b>#end<br>
+<input type="submit" value="Save" />
+</form>
+

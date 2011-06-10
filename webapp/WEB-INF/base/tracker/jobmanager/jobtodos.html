@@ -1,0 +1,30 @@
+	
+	
+
+<div id="todolistlayout">
+	<h2>
+		#if( $job.name ) $job.name #else ${userManager.getUser($job.getCreatedByUser()).getScreenName()}'s Issues #end
+		#if($job.shortdescription)<span style="color: grey;text-decoration: none;font-style: italic;"> - $job.shortdescription</span>#end
+	</h2>
+	
+
+#set($deldetails =  $jobtracker.getTodoDataProperties("todoresults",$user))
+#set($todos = $job.todos)
+<div id="todotable">
+#if( $todos.size() > 0 )
+$pages.include("$cataloghome/jobmanager/todos/todolist.html")
+#else
+<p>
+No posts yet.</br>
+#if( $todos.size() > 10 &&  $isEditor )	
+<a href="$home$cataloghome/myaccount/addnew.html?jobid=$job.id" >Add First Posting</a>
+#end
+
+</p>
+
+#end
+</div>
+
+$pages.includeContent()
+
+</div>

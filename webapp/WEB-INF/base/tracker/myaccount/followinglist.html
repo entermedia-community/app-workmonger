@@ -1,0 +1,21 @@
+<h2>Notifications</h2>
+You are receiving email notifications for the following users' issues:
+<br/><br/>
+#foreach($hit in $followinghits)
+
+<div id="message-$hit.id">
+		<form id="$hit.id" class="ajaxform" targetdiv="message-$hit.id" action="$home$cataloghome/jobmanager/unsubscribe.html">
+		<a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=${hit.id}">
+		#if($hit.name)$hit.name #else ${userManager.getScreenName($hit.createdby)}'s Issues #end
+		</a>
+		#if($hit.get("createdby") == $user.id)
+			<span style="margin-left: 50px;">You are the creator of this project</span>
+		#else
+			<input type="hidden" name="jobid" value="$hit.id"/>
+			<input type="hidden" name="toremove" value="$user.id"/>
+			<input style="margin-left: 50px;" type="submit" value="Stop Notifications"/>
+		#end
+		</form>
+</div>
+	<br/>
+#end

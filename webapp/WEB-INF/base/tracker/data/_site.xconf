@@ -1,0 +1,8 @@
+<page>
+	<permission name="view">
+		<user />
+	</permission>
+	<path-action name="Admin.allowViewing" alltypes="true">
+		<login-path>/openedit/authentication/logon.html</login-path>
+	</path-action>
+</page>

@@ -1,0 +1,56 @@
+<h2>
+	View Members
+</h2>
+
+#if( $job.getUserEntries().size() == 0)
+	<p>No members are subscribed.</p>
+#else
+<form name="editfollowers">
+
+<table>
+<tr>
+	<th>Members</th>
+	<th>Editor</th>
+	#if($job.isEditor($user))
+	<th>Remove</th>
+	#end
+</tr>
+#foreach($follower in $job.getUserEntries())
+<tr>
+	<td>
+		$follower.getUser().getScreenName()
+	</td>
+	<td>
+		#if($job.isEditor($user) || $cantrackeradmin )
+		<div id="${follower.getUser().getUserName()}permissions"><input type="checkbox" name="editor" value="$follower.getUser().getUserName()" #if($job.isEditor($follower.getUser())) checked="true" #end onchange="changePermission('$follower.getUser().getUserName()');" /></div>
+		#else
+			#if($job.isEditor($follower.getUser())) Yes #end
+		#end
+	</td>
+	#if($job.isEditor($user) || $cantrackeradmin)
+	<td>
+		<a href="$home$cataloghome/jobmanager/jobfollowers/index.html?jobid=$job.id&toremove=$follower.getUser().getUserName()"><img src="$home/openedit/images/icons/remove.png"/></a>
+	</td>
+	#end
+</tr>
+#end
+</table>
+
+Editors will be able to Manage User Permissions, Edit Project Settings, and Invite new members.
+#end
+#if($job.isEditor($user) || $cantrackeradmin)
+	<span style="float:right;">
+		<a href="$home$cataloghome/jobmanager/jobmemberedit/index.html?jobid=$job.id" ><span>Invite Members</span></a> |
+		<a href="$home$cataloghome/jobmanager/invite/pending.html?jobid=$job.id" ><span>Pending</span></a>
+	</span>
+#end
+<script type="text/javascript">
+	changePermission = function(inUserName)
+	{
+		var divid = "#" + inUserName + "permissions";
+		divid = divid.replace(/\./g, "\\.");
+		divid = divid.replace(/@/g, "\\@");
+    	jQuery(divid).load( '$home$cataloghome/jobmanager/jobfollowers/toggle.html?jobid=$job.id&username=' + inUserName);
+   	}
+</script>
+

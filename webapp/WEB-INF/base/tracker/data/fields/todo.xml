@@ -1,0 +1,29 @@
+<properties>
+<property id="description" >Keyword</property>
+<property id="name" keyword="true" editable="true">Subject</property>
+<property id="jobid" index="true" stored="true" keyword="true" type="list" listid="job" editable="false">Job Id</property>
+<property id="jobname" index="true" stored="true" keyword="true" editable="false">Job Name</property>
+<property id="jobhidden" index="true" stored="true" keyword="true" editable="false">Hidden Job</property>
+<property id="jobopen" index="true" stored="true" keyword="true" editable="false">Job Open</property>
+<property id="jobassignedto" index="true" viewtype="list" catalogid="openedit" listid="user" keyword="true" stored="true" editable="true" query="groups:users" >Job Owner</property>
+<property id="assignedto" keyword="true" stored="true" index="true" editable="true" viewtype="list" >Task Owner</property>
+<property id="notes" keyword="true" editable="true">Notes</property>
+<property id="waitingon" editable="true" index="true" type="list" stored="true"  >Waiting On</property>
+<property id="todolaststatus" editable="false" index="true" type="list"  >Last Status</property>
+<property id="todolaststatusdate" editable="false" index="true" type="date" format="yyyy-MM-dd'T'HH:mm:ss.SSSZ" >Last Changed</property>
+<property id="todolaststatususer" editable="false" index="true">Last User ID</property>
+<property id="todolaststatussummary" editable="false" index="true" stored="true">Last Status Summary</property>
+<property id="todofirststatussummary" editable="false" index="true" stored="true">First Status Summary</property>
+<property id="duedate" editable="true"  index="true" stored="true" type="date" format="MM/dd/yyyy" >Due Date</property>
+<property id="estimate" index="true" number="true" stored="true" editable="true" >Estimate</property>
+<property id="hours" index="true" >Hours</property>
+<property id="notify" editable="true" type="boolean" >Send Email Notifications</property>
+<property id="required" editable="true" type="boolean" >Is Requirement</property>
+<property id="rank" index="true" editable="true" stored="true">Rank</property>
+<property id="priority" index="true" editable="true" stored="true">Priority</property>
+<property id="statuscount" index="true" editable="true" stored="true">Status Change Count</property>
+<property id="todoarea" editable="true" index="true" type="list" stored="true"  >Function</property>
+<property id="currentstate" editable="true" index="true" type="list" stored="true"  >State</property>
+
+
+</properties>

@@ -1,0 +1,38 @@
+	
+	#if( $todohits && $todohits.size() > 0 )
+		
+		#set($showall = $context.getRequestParameter("showall"))
+		#if($showall && $showall == "true")
+			#set($showhits = $todohits.getAllHits())
+		#else	
+			 #set($showhits = $todohits.getPageOfHits())
+		#end	
+			#foreach( $hit in $showhits)
+			<div  style="border-bottom: 1px dashed #aaaaaa;padding: 5px;">
+
+						<a style="text-decoration: none;" href="$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$hit.jobid&todoid=$hit.id" >
+							<b>#esc(${hit.name})</b> posted <i> $!context.getDateTime($todohits.getDateValue($hit,"todolaststatusdate")) </i>
+						</a>
+						on project <a style="text-decoration: none;" href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$hit.jobid" >
+						#if( $hit.jobname)#esc($hit.jobname) #else $userManager.getScreenName($hit.jobassignedto)#end
+						</a>
+						
+						due <i> $!context.getDate($todohits.getDateValue($hit,"duedate")) </i>
+					 	<br/>
+						#esc($!hit.get("todolaststatussummary"))  - #esc($!userManager.getScreenName($hit.get("todolaststatususer")))
+ 
+		</div>				
+		#end
+		##$pages.include("$home$cataloghome/jobmanager/pages.html", $context)
+		
+		<p>
+			#if($showall && $showall == "true")
+				$todohits.size() Open Issues
+			#else
+				$todohits.getPageStart() - $todohits.getPageEnd() of $todohits.size() Open Issues
+				<span style="float:right;"><a href="$cataloghome/index.html?showall=true">View All</a></span>
+			#end
+		</p>
+	#else
+		<p>No issues found</p>
+	#end

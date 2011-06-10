@@ -1,0 +1,96 @@
+
+	<link rel="stylesheet" type="text/css" href="./reset.css" />
+	<link rel="stylesheet" type="text/css" href="./jquery.ganttView.css" />
+	<style type="text/css">
+		body {
+			font-family: tahoma, verdana, helvetica;
+			font-size: 0.8em;
+			padding: 10px;
+		}
+	</style>
+	
+	<h2>Gantt Chart</h2>
+	<div id="ganttChart"></div>
+	#if( $todos.size() == 0 )
+		[[No issues found starting in this month]]
+	#end
+	<br/><br/>
+	<div id="todoworkarea"></div>
+	<a class="emdialog" style="display: none;" id="fancyboxdialog" href="$home/index.html"> link	</a>
+
+#set( $month = $context.getRequestParameter('month') )
+
+	<script type="text/javascript" src="./date.js"></script>
+	
+	<script type="text/javascript" src="./jquery-ui-1.8.4.js"></script>
+	<script type="text/javascript" src="./jquery.ganttView.js"></script>
+	<script type="text/javascript" src="./data.js?jobid=$job.id&month=$!month"></script>
+
+#if( $todos.size() > 0 )
+
+	<script type="text/javascript">
+		$(function () {
+
+			$("#ganttChart").ganttView({ 
+				data: ganttData,
+				start: new Date($!starting.getTime()),
+				end: new Date($!ending.getTime()),
+				slideWidth: 850,
+				showWeekends: false,
+				behavior: {
+					onClick: function (data) { 
+					//http://localhost:8080/testcatalog/jobmanager/todos/todomessages.html?jobid=136&todoid=152
+						//var msg = "You clicked on an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+						##$("#todoworkarea").load("$cataloghome/jobmanager/todos/todomessages.html?oemaxlevel=1&jobid=$job.id&todoid=" + data.itemId);
+						$("#fancyboxdialog").attr("href","$cataloghome/jobmanager/todos/todomessages.html?oemaxlevel=1&jobid=$job.id&todoid=" + data.itemId );
+						$("#fancyboxdialog").click();
+					},
+					onResize: function (data) { 
+						//var msg = "You resized an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+						//$("#eventMessage").text(msg);	
+					},
+					onDrag: function (data) { 
+						//var msg = "You dragged an event: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+						//$("#eventMessage").text(msg);	
+					}
+				}
+			});
+			
+			//do the color thing
+			$("div.ganttview-block").each( function()
+			{
+				if( $(this).attr("title").indexOf("open")  > -1)
+				{
+					$(this).css("background-color","red");
+				}
+				else
+				{
+					$(this).css("background-color","green");
+				
+				}
+			});
+			
+			
+		});
+		
+	</script>
+#end	
+
+	<form name="pickmonth" id="pickmontform">
+		<input type="hidden" name="jobid" value="$job.id" />
+		<select name="month" onchange='jQuery("#pickmontform").submit();'>
+			<option value="">Select Month</option>
+			<option value="1" #if( $month == "1" ) selected #end>Jan</option>
+			<option value="2"#if( $month == "2" ) selected #end>Feb</option>
+			<option value="3"#if( $month == "3" ) selected #end>Marcg</option>
+			<option value="4"#if( $month == "4" ) selected #end>April</option>
+			<option value="5"#if( $month == "5" ) selected #end>May</option>
+			<option value="6"#if( $month == "6" ) selected #end>June</option>
+			<option value="7"#if( $month == "7" ) selected #end>July</option>
+			<option value="8"#if( $month == "8" ) selected #end>Aug</option>
+			<option value="9"#if( $month == "9" ) selected #end>Sep</option>
+			<option value="10"#if( $month == "10" ) selected #end>Oct</option>
+			<option value="11"#if( $month == "11" ) selected #end>Nov</option>
+			<option value="12"#if( $month == "12" ) selected #end>Dec</option>
+		</select>
+	</form>

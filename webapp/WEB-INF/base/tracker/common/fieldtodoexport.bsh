@@ -1,0 +1,57 @@
+try {
+
+/* Initialization */
+writer = context.response.writer;
+user = context.user;
+jobtracker = context.get("jobtracker");
+usermanager = context.get("usermanager");
+deldetails = jobtracker.getTodoDataProperties("todoresults",user);
+hits = context.get("todohits");
+sep = context.getRequestParameter("separator");
+
+if (sep == null)
+	sep = ",";
+else if (sep == "tab")
+	sep="\t";
+
+/* Header */ 
+buffer = new StringBuffer();
+for( i = deldetails.iterator(); i.hasNext(); )
+{
+	detail = i.next();
+	buffer.append(detail.text + sep);
+}
+buffer.delete(buffer.lastIndexOf(sep), buffer.length());
+writer.println(buffer.toString());
+
+
+/* Data */
+for (i = hits.iterator(); i.hasNext(); ) 
+{
+	hit = i.next();
+	buffer = new StringBuffer();
+	for (j = deldetails.iterator(); j.hasNext(); )
+	{
+		detail = j.next();
+		if ( hit.get(detail.id) == null )
+		{
+			buffer.append(sep);
+		}
+		else if( detail.isList() )
+		{
+			slist = jobtracker.searcherManager.getList(jobtracker.catalogId, detail.id); 
+			buffer.append( slist.get(hit.get(detail.id)) + sep );
+		}
+		else
+		{
+			buffer.append( hit.get(detail.id) +sep );
+		}
+	}
+	buffer.delete(buffer.lastIndexOf(sep), buffer.length());
+	writer.println(buffer.toString());
+}
+
+} catch ( e ) {
+	writer.println();
+	e.printStackTrace ( new java.io.PrintWriter(writer) );
+}

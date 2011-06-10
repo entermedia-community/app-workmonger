@@ -1,0 +1,29 @@
+<div class="sidecontent">
+
+<h2>Todo Search</h2>
+<form  name="fieldsearch" method="post">
+
+#set($fields = $jobtracker.getTodoSearcher().getDetailsForView("todosearch", $user))
+
+$context.putPageValue("hits",$todohits)
+$context.putPageValue("details",$fields)
+$context.putPageValue("fields",$fields)
+$context.putPageValue("searcher",$jobtracker.getTodoSearcher())
+$pages.include("$cataloghome/common/searchfields.html", $context)
+<input type="submit" />
+	</form>
+<table name="quickfind" id="quickfind" summary="quickfind" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+		<td class="borderAll" height="25" valign="top">
+
+
+	</td>
+	<td>
+#set($fields = $jobtracker.getTodoDataProperties("todoresults", $user))
+$context.putPageValue("fields",$fields)
+$pages.include("$cataloghome/reports/results.html",$context)
+
+<p><a href="$cataloghome/common/fieldtodoexport.csv">Export this results to CSV</a></p>
+</td>
+</tr>
+</table>

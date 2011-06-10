@@ -1,0 +1,39 @@
+<h2>Project Settings</h2>
+
+#set( $fields = $jobtracker.getFieldArchive() )
+$context.putPageValue("fields", $fields )	
+#set($searcher = $jobtracker.getJobSearcher())
+$context.putPageValue("searcher", $searcher)
+$context.putPageValue("data", $job)	
+$context.putPageValue("view", "jobedit")
+<form name="jobedit" action="$home$cataloghome/jobmanager/jobsave.html" method="post" >
+<input type="hidden" name="jobid" value="$!job.id"/>
+#set($editor = $job.isEditor($user) || $cantrackeradmin)
+#if($editor)
+	$pages.include("/system/components/xml/detaileditor.html?detailsreadonly=false", $context)
+#else
+	$pages.include("/system/components/xml/detaileditor.html?detailsreadonly=true", $context)
+#end
+
+<input type="hidden" name="field" value="hidden"/>
+#if( $cantrackeradmin )
+	<p><label>This is a Private Project</label><input style="margin-left:10px;" type="checkbox" name="hidden.value" value="true" #if($job.get('hidden') == 'true') checked #end/></p>
+#elseif($canlevel2support)
+	<p><label>This is a Private Project</label><input style="margin-left:10px;" type="hidden" name="hidden.value" value="true"/></p>
+#else
+	<input type="hidden" name="hidden.value" value="false"/>
+#end
+<br/>
+#if( $job.createdby )
+	#set( $username = $job.createdby )
+	<p><label>Created By:</label> <a href="$home$cataloghome/jobmanager/jobtodos.html?jobid=$job.id">$username</a></p>
+#end
+#if($editor)
+	<input type="submit" value="Save" />
+	#if( $content.name == "jobcreatenew.html")
+	<input type="hidden" name="origURL" value="$cataloghome/jobmanager/jobtodos.html?jobid=$job.id"/>	
+	#else
+	<input type="hidden" name="origURL" value="$content.path"/>
+	#end
+#end
+</form>

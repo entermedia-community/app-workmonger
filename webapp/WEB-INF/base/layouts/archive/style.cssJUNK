@@ -1,0 +1,71 @@
+/* Basic Styles for the site. This file is optional */
+A:link 
+	{color:#333333; 
+	text-decoration:underline}
+
+A:visited 
+	{color:#333333; 
+	text-decoration:underline}
+
+A:active 
+	{color:#999999; 
+	text-decoration:none}
+
+A:hover 
+	{color:#333333;
+	text-decoration:underline}
+
+#body
+{
+	font-size: 11px;
+	font-family:"Verdana", "Arial","Helvetica","Sans-serif";
+	color:#333333;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+}
+
+P, TD
+{
+	font-size:11px;
+	font-family:"Verdana", "Arial","Helvetica","Sans-serif";
+	color:#333333;
+}
+
+th
+{
+	padding: 10px; 
+	vertical-align: middle;
+	font-size: .7em;
+
+}
+
+/* to create table with div's */
+*.tablediv {
+display: table;
+width: 100%;
+/*background-color: #eee;*/
+/*border: 1px solid  #666666;*/
+/*border-spacing: 5px;*//*cellspacing:poor IE support for  this*/
+/*border-collapse:separate;*/
+}
+*.tableheaderdiv {
+display: table;
+width: 100%;
+font-weight: bold;
+/*background-color: #eee;*/
+/*border: 1px solid  #666666;*/
+/*border-spacing: 5px;*//*cellspacing:poor IE support for  this*/
+/*border-collapse:separate;*/
+}
+*.rowdiv  {
+display: table-row;
+width:auto;
+}
+*.celldiv {
+float:left;/*fix for  buggy browsers*/
+display:table-cell;
+width:15%;
+/*background-color:#ccc;*/
+}
+

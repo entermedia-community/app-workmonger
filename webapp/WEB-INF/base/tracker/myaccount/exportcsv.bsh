@@ -1,0 +1,59 @@
+/* Initialization */
+writer = context.response.writer;
+user = context.user;
+jobtracker = context.get("jobtracker");
+usermanager = context.get("usermanager");
+deldetails =  jobtracker.getTodoDataProperties("todoresults",user);
+hits = context.get("todohits");
+sep = context.getRequestParameter("separator");
+
+if (sep == null)
+	sep = ",";
+else if (sep.equals("tab"))
+	sep = "\t";
+
+/* Header */ 
+buffer = new StringBuffer();
+buffer.append("Job Name");
+for( i = deldetails.iterator(); i.hasNext(); )
+{
+	detail = i.next();
+	buffer.append(sep+detail.text);
+}
+writer.println(buffer.toString());
+
+
+/* Data */
+for (i = hits.iterator(); i.hasNext(); ) 
+{
+	hit = i.next();
+	buffer = new StringBuffer();
+	buffer.append(hit.get("jobname"));
+	for (j = deldetails.iterator(); j.hasNext(); )
+	{
+		detail = j.next();
+		if ( hit.get(detail.id) == null )
+		{
+			buffer.append(sep);
+		}
+		else if( detail.id.equals("todolaststatususer") )
+		{ 
+			buffer.append( sep + usermanager.getUser(hit.get(detail.id)) );
+		}
+		else if( detail.isList() )
+		{
+			slist = jobtracker.searcherManager.getList(jobtracker.catalogId,detail); 
+			buffer.append( sep + slist.get(hit.get(detail.id)) );
+		}
+		else if( detail.isDate() )
+		{
+			buffer.append( sep + hits.toDateTime(hit.get(detail.id)) );
+		}
+		else
+		{
+			buffer.append( sep + hit.get(detail.id) );
+		}
+	}
+	writer.println(buffer.toString());
+}
+

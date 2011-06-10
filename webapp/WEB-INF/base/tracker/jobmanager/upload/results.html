@@ -1,0 +1,23 @@
+#set( $fields = $jobtracker.getFieldArchive() )
+	#set($details =  $fields.getDataProperties("job","jobresults",$user))
+	#set($tododetails =  $fields.getDataProperties("todo","jobresultstodo",$user))
+	#set( $slist = $fields.getProperties("todolaststatus") ) 
+	
+	<script language="javascript" src="$home$cataloghome/layout/resultshover.js"></script>
+	
+	<div id="slideSheet" class="slidemediumheight clearFix">
+	<ul>
+#foreach ( $hit in $hits.getAllHits() )
+				<li>
+				<a href="$home$cataloghome/jobmanager/download/$job.getSourcePath()/attachments/$hit.name">$!url_util.getPathUtilities().extractFileName($hit.path)</a> $hit.lastModified() <b>$!hit.getAuthor()</b>
+				</li>
+#end
+	</ul>
+</div>
+
+#if ( $hits && $hits.size() ==0 )
+<p>No files found</p>
+#else
+$hits.size() files found
+
+#end

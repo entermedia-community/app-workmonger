@@ -1,0 +1,57 @@
+<h1>Hours Report
+</h1>
+#if ($report)
+($context.getRequestParameter("datefrom") - $context.getRequestParameter("dateto")) 
+<p>
+	<table width="100%">
+<tr><th>User</th><th>Date</th><th>Job</th><th>Todo</th><th>Details</th><th>Hours</th></tr>
+
+#set( $total = 0)
+
+#foreach ( $day in $report )
+  #foreach ( $row in $day.getRows() )
+   #set ( $job = $row.job )
+   #set ( $todo = $row.todo )
+   #set ( $entry = $row.timeEntry )
+<tr><td>$entry.user ($entry.user.userName)</td><td>$dateformater.format($entry.date)</td><td>$job.name</td><td><a href="$home$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$job.id&todoid=$todo.id">$todo.name</a></td><td>$!entry.getDescription()</td>
+<td>
+	$entry.hours	
+</td></tr>
+  #end
+<!-- tr><td></td><td></td><td></td><td></td><td align="right">subtotal:</td><td> day.hours</td></tr -->
+#set( $total = $day.hours + $total )
+#end 
+</table>
+<br>
+<p>Total: $total hours</p>
+<hr>
+#end
+
+<script type="text/javascript" src="$home/openedit/javascript/datetimepicker.js"></script>
+
+<form method="post">
+<table>
+<tr><td><label>Date from:</label></td><td><input type="text" name="datefrom" id="datefrom" value="$!context.getRequestParameter('datefrom')" size="8"/>
+	<a style="padding-right: 5px;"	href="javascript:NewCal('datefrom','mmddyyyy')">
+	<img src="$home/openedit/javascript/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+	</td></tr>
+<tr><td><label>Date to:</label></td><td><input type="text" name="dateto" id="dateto" value="$!context.getRequestParameter('dateto')" size="8"/>
+	<a style="padding-right: 5px;"	href="javascript:NewCal('dateto','mmddyyyy')">
+	<img src="$home/openedit/javascript/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+	</td></tr>
+<tr><td><label>Username:</label></td><td> <input type="text" name="username" value="$!context.getRequestParameter('username')"/> (leave blank for all users )<br>
+<tr><td><label>Job:</label></td>
+<td>
+<select name="jobid"><option value="">All Jobs</option>
+			#set( $inputed = "$!context.getRequestParameter('jobid')" )
+	#foreach ( $hit in $jobs.getAllHits() )
+		<option value="$hit.id" #if( $inputed == $hit.id) selected #end>$hit.name</option>
+	#end
+	</select>
+</td></tr>
+
+<tr><td colpan=2 ><input type="submit" value="Get report"/></td></tr>
+</table>
+<input type="hidden" name="dateformat" value="MM/dd/yyyy"/>
+<input type="hidden" name="reportdateformat" value="MMM dd"/>
+</form>

@@ -1,0 +1,69 @@
+#set( $slist = $jobtracker.searcherManager.getList($jobtracker.getCatalogId(),"todolaststatus") )
+
+#if( $message)
+<p><label>$message.getUser()</label><br>
+<label>$!slist.get($message.getType())</label></p>
+<pre>$!url_util.xmlEscapeWithWrap($message.note,100)</pre>
+</p>
+	#if($message.getAttachmentPath())
+	<p>Attachment: <a href="$context.siteRoot$home$message.getAttachmentPath()">$!url_util.getPathUtilities().extractFileName($message.getAttachmentPath())</a></p>
+	#end
+#end
+
+<h2>Message Notification</h2>
+
+#if( $sendto.hasPermission("archive.jobediting"))
+<p><a href="http://$content.hostName$home$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$job.id&todoid=$todo.id">Reply to this message</a>
+#else
+<p><a href="http://$content.hostName$home$home$cataloghome/jobmanager/todos/todomessages.html?jobid=$job.id&todoid=$todo.id">View message history</a>
+#end
+
+<label>Date: $message.formatedDate</label><br>
+
+</div>
+
+<div class="cssform">
+
+	
+<p><label>Job: </label>#if($job.getName())$job.getName() #else $!{userManager.getUser($job.getCreatedByUser()).getScreenName()}'s Issues #end</p>
+#set($deldetails =  $jobtracker.getTodoDataProperties("todoemail",$user))
+
+#foreach( $detail in $deldetails )
+#set( $val = "$!todo.get($detail.getId())")		
+#if( $val != "")
+<p><label>$detail.getText(): </label>$val</p>
+#end
+#end
+
+</div>
+<p>
+	#if( $todo.getStatusChanges().size() > 1 && $todo.firstStatus )<p>Reported by: $todo.firstStatus.user on $todo.firstStatus.formatedDate</p> <p>
+		<pre>$!url_util.xmlEscapeWithWrap($todo.firstStatus.note,100)</pre>		
+	#end
+</p>
+
+ #set( $listing = $jobtracker.getJobNotify().findUsersFor($job))
+
+<style>
+.cssform p {
+width: 400px;
+clear: left;
+margin: 0;
+padding: 5px 0 8px 0;
+padding-left: 150px; /*width of left column containing the label elements*/
+border-top: 1px dashed gray;
+height: 1%;
+}
+
+label
+{
+	font-weight: bold;
+}
+.cssform label{
+font-weight: bold;
+float: left;
+margin-left: -150px; /*width of left column*/
+width: 140px; /*width of labels. Should be smaller than left column (155px) to create some right margin*/
+}	
+
+</style>

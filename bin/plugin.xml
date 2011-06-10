@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+ <bean id="jobTracker" class="org.openedit.tracker.JobTracker" singleton="false" >
+ <property name="jobArchive"><ref bean="jobArchive"/></property>
+ <property name="jobNotify"><ref bean="jobNotify"/></property>
+ <property name="postMail"><ref bean="postMail"/></property> 
+ <property name="root"><ref bean="root"/></property>  	
+ 	<property name="searcherManager"><ref bean="searcherManager"/></property> 
+ </bean>
+
+ <bean id="jobTrackerMap" class="org.openedit.tracker.JobTrackerMap" singleton="true" >
+ 	
+ </bean>
+ 
+ <bean id="JobTracking" class="org.openedit.tracker.modules.JobTrackingModule" >
+ <property name="jobTrackers"><ref bean="jobTrackerMap"/></property>
+ <property name="postMail"><ref bean="postMail"/></property>
+ </bean>
+ <bean id="invitationSearcher" class="org.openedit.data.XmlFileSearcher" singleton="false" >
+		<property name="pageManager"><ref bean="pageManager"/></property>
+		<property name="xmlArchive"><ref bean="xmlArchive"/></property>
+		<property name="searcherManager"><ref bean="searcherManager"/></property>
+		<property name="rootDirectory"><ref bean="root"/></property>
+		<property name="prefix"><value>users</value></property>
+	</bean>	
+  <bean id="jobSearcher" class="org.openedit.tracker.JobSearcher" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  	<property name="rootDirectory"><ref bean="root"/></property>
+  </bean>
+
+  <bean id="todoSearcher" class="org.openedit.tracker.TodoSearcher" singleton="false">
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  	 <property name="rootDirectory"><ref bean="root"/></property>
+  </bean>
+ 
+  <bean id="jobTimeArchive" class="org.openedit.tracker.JobTimeArchive" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+	<property name="userManager"><ref bean="userManager" /></property>
+	<property name="xmlArchive"><ref bean="xmlArchive"/></property>
+  </bean>
+  
+  <bean id="jobArchive" class="org.openedit.tracker.XmlJobArchive" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  	<property name="userManager"><ref bean="userManager" /></property>
+	<property name="jobSearcher"><ref bean="jobSearcher"/></property>  	
+	<property name="root"><ref bean="root"/></property>  	
+	<property name="jobTimeArchive"><ref bean="jobTimeArchive"/></property> 
+  </bean>
+  
+  <!-- 
+  <bean id="jobSearch" class="org.openedit.tracker.JobSearch" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  </bean>
+  <bean id="todoSearch" class="org.openedit.tracker.TodoSearch" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  </bean>
+  -->
+ 
+  <bean id="jobNotify" class="org.openedit.tracker.JobNotify" singleton="false" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  	<property name="userManager"><ref bean="userManager" /></property>
+  	<property name="postMail"><ref bean="postMail"/></property>
+  </bean>
+
+<!-- 
+ <bean id="jobImportConverter" class="com.openedit.scanner.JobImportConverter" >
+  	<property name="pageManager"><ref bean="pageManager" /></property>
+  	<property name="userManager"><ref bean="userManager" /></property>
+ </bean>
+-->
+ <bean id="JobBudgetModule" class="org.openedit.tracker.modules.JobBudgetModule" >
+ 	  	<property name="calendarArchive"><ref bean="UserCalendarArchive" /></property>
+ </bean>
+ 
+ <bean id="chart" class="com.openedit.charts.JFreeChartGenerator" />
+ 
+</beans>

@@ -1,0 +1,44 @@
+<table border="0" cellspacing="2" width="80%" class="standard-table" style="padding:10px;">
+	<tr>
+
+	#set( $fields = $jobtracker.getFieldArchive() )
+	#set($details =  $fields.getDataProperties("job","jobresults",$user))
+	#set($tododetails =  $fields.getDataProperties("todo","jobresultstodo",$user))
+	#set( $slist = $fields.getProperties("todolaststatus") ) 
+	#foreach( $detail in $details )
+	<th align="left">$detail.getText()</th>
+	#end
+	<th align="left">$page.get("text.trackingname")</th>
+	
+	<th align="left"> </th>
+</tr>
+#set( $even = false )
+#foreach ( $hit in $jobhits.getAllHits() )
+#set( $job = $jobtracker.getJobArchive().getJobById($hit.id ) )
+	<tr style="background-color: #EEEEEE;">
+	#foreach( $detail in $details )
+			<td nowrap>$!job.get($detail.getId())</td>
+	#end
+	<td>$job.getHours()</td>
+	<td ><a href="$home$cataloghome/jobs/details/${job.id}.html">details</a></td>
+	</tr>
+#set( $cols = $details.size()+-1)
+	#foreach( $todo in $job.todos )
+	<tr><td width="10">&nbsp;</td><td colspan="$cols">
+	#foreach( $tododetail in $tododetails ) #set( $todoval = "$!todo.get($tododetail.getId())")
+		#if( $todoval != "" )<b>$tododetail.getText():</b> $todoval &nbsp;#end
+	#end	
+	#if( $todo.getLastStatus() )<b>Status:</b> $!slist.get($todo.getLastStatus().getType())  #if( $todo.getLastStatus().getNote())[$todo.getLastStatus().getNote()]#end#end
+	</td><td>$todo.getHours()</td>
+	<td><a href="$home$cataloghome/jobs/todos/$job.id/${todo.id}.html" >show</a>
+	</tr>
+	#end
+#set( $allcols = $details.size()+2)
+	<tr><td colspan="$allcols" >&nbsp;</td></tr>
+#end
+</table>
+
+#if ( $jobhits && $jobhits.size() ==0 )
+<p>No jobs found</p>
+#end
+

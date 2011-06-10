@@ -1,0 +1,6 @@
+<page>
+	<path-action name="JobTracking.saveJobTodo" />
+	<path-action name="JobTracking.changeTodoStatus" />
+	<path-action name="JobTracking.loadTodo" />
+	<property name="virtual">true</property>
+</page>

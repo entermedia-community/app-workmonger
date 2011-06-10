@@ -1,0 +1,9 @@
+<properties>
+
+<property id="description" />
+<property id="name" />
+<property id="client" />
+<property id="jobtype" />
+<property id="jobopen" />
+
+</properties>

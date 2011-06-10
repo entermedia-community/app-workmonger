@@ -1,0 +1,9 @@
+<properties>
+
+<property id="jobid" />
+<property id="description" />
+<property id="jobassignedto" />
+<property id="todolaststatus" />
+<property id="todolaststatusdate" />
+<property id="todolaststatususer" />
+</properties>

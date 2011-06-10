@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+  <path-action name="JobTracking.changeTodoStatus" />
+	
+	<permission name="view">
+		<action name="JobTracking.canViewJob"/>
+	</permission>
+	<property name="virtual">true</property>	
+		<property name="subsection">jobtodos</property>
+	
+	<inner-layout>/${catalogid}/jobmanager/jobtodos.html</inner-layout>
+</page>

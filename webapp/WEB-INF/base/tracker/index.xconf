@@ -1,0 +1,5 @@
+<page>
+	<property name="hitsname">todohits</property>
+	<path-action name="JobTracking.getOpenJobList" />
+	
+</page>

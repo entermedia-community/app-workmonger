@@ -1,0 +1,35 @@
+<div class="sidecontent">
+
+<table name="quickfind" id="quickfind" summary="quickfind" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+		<td class="borderLeftRight SIDEBAR"  height="12" nowrap="nowrap" valign="top">
+			<table name="fav0" id="tableNav0" summary="fav0" border="0" cellpadding="2" cellspacing="2" height="12">
+				<tr>
+					<td>
+							&nbsp; Show records for which:
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="borderAll" height="25" valign="middle">
+<form action="$home$cataloghome/search/todosearch.html" name="fieldsearch" method="post">
+
+#set($fields = $jobtracker.getTodoDataProperties("jobsearchtodo", $user	))
+$context.putPageValue("hits",$todohits)
+$context.putPageValue("fields",$fields)
+$pages.include("$cataloghome/search/inputs.html",$context)
+
+<div class="searchlabel">
+										<input type="submit" value="Go" />
+</div>										
+	</form>
+<div class="borderTopRight SIDEBAR" align="center" >
+	<a href="$home$cataloghome/myaccount/admin.html">Create New</a> <a href="$home$cataloghome/jobs/search/showmytodos.html">Show All</a>
+</div>
+	
+	
+	</td>
+</tr>
+</table>

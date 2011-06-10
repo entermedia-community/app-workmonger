@@ -1,0 +1,5 @@
+<page>
+	<path-action name="JobTracking.getClosedJobList" />
+	<property name="defaultsort">name</property>
+
+</page>

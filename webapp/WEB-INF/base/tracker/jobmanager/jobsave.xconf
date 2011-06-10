@@ -1,0 +1,7 @@
+<page>
+<path-action name="JobTracking.getOpenJobList" cancel="true"/>
+
+	<path-action name="JobTracking.saveJob" />
+		<property name="virtual">true</property>
+	
+</page>

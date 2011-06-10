@@ -1,0 +1,68 @@
+import java.io.*;
+import org.openedit.util.*;
+import org.openedit.tracker.*;
+
+/*
+ * Excel Job File Importer
+ * By Jorge Valencia <jvalencia@openedit.org>
+ */
+
+backLog = new StringWriter();
+log = new PrintWriter( backLog ); 
+
+tracker = context.get("jobtracker");
+jobArchive = tracker.getJobArchive();
+jobSearcher = tracker.getJobSearcher();
+jobDetails = tracker.getFieldArchive().getDataProperties( "job" );
+
+String root = tracker.getRoot().getCanonicalPath() + "/" + tracker.getCatalogId();
+String fileName = root + "/upload/jobs.xls";
+
+jobsFile = new File( fileName );
+
+if (jobsFile.exists())
+{
+	log.println("Starting conversion...");
+	file = new ExcelImportFile();
+	file.load( jobsFile );
+	int processed = 0, skipped = 0;
+	while( ( row = file.getNextRow() ) != null )
+	{
+   		String id = row.get("id");
+   		if (id == null || id.trim().equals(""))
+   		{
+   			skipped++;
+   			continue;
+   		}
+   		
+   		job = jobArchive.createJob( id );
+   		job.setName( row.get("name") );
+   		job.setPriority( new java.math.BigDecimal( row.get("priority") ).intValue() );
+   		job.setOpen( Boolean.parseBoolean( row.get("open") ) );
+   		job.setExist( Boolean.parseBoolean( row.get("exist") ) );
+   		
+   		for (i = jobDetails.iterator(); i.hasNext();)
+   		{
+   			detail = i.next();
+   			if ( detail.getId().equals("priority") )
+   				continue;
+   				
+   			value = row.get( detail.getId() );
+   			if ( value == null || value.trim().equals("") )
+   				continue;
+   			job.setProperty( detail.getId(), value );
+   		}   		
+   		
+   		jobArchive.save( job, context.getUser() );
+   		jobSearcher.updateIndex( job );
+   		processed++; 
+	}
+	log.println(String.valueOf(processed) + " rows processed.");
+	log.println(String.valueOf(skipped) + " rows skipped.");
+}
+else
+{
+	log.println("Input file does not exist: " + fileName);
+}
+
+context.putPageValue("msg", "<pre>" + backLog.toString() + "</pre>");
