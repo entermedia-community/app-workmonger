@@ -56,11 +56,11 @@ public class JobSearcher extends BaseLuceneSearcher
 	
 	protected void updateIndex(Job job, Document doc, PropertyDetails inJobDetails) throws CorruptIndexException, IOException
 	{
-		doc.add(new Field("id", job.getId(), Field.Store.YES, Field.Index.NO_NORMS));
+		doc.add(new Field("id", job.getId(), Field.Store.YES, Field.Index.ANALYZED_NO_NORMS));
 		if( job.getName() != null)
 		{
-			doc.add(new Field("name", job.getName(), Field.Store.YES, Field.Index.TOKENIZED));
-			doc.add(new Field("namesorted", job.getName(), Field.Store.NO, Field.Index.NO_NORMS));
+			doc.add(new Field("name", job.getName(), Field.Store.YES, Field.Index.ANALYZED));
+			doc.add(new Field("namesorted", job.getName(), Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 		}
 
 		StringBuffer keywords = new StringBuffer();
@@ -80,11 +80,11 @@ public class JobSearcher extends BaseLuceneSearcher
 			{
 				if( detail.isStored())
 				{
-					doc.add( new Field(detail.getId(),value, Field.Store.YES, Field.Index.NO_NORMS));
+					doc.add( new Field(detail.getId(),value, Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 				}
 				else
 				{
-					doc.add( new Field(detail.getId(),value, Field.Store.NO, Field.Index.NO_NORMS));
+					doc.add( new Field(detail.getId(),value, Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 				}
 				if( detail.isKeyword())
 				{
@@ -93,12 +93,12 @@ public class JobSearcher extends BaseLuceneSearcher
 				}
 			}
 		}
-		doc.add( new Field("description",keywords.toString(), Field.Store.NO, Field.Index.TOKENIZED));
+		doc.add( new Field("description",keywords.toString(), Field.Store.NO, Field.Index.ANALYZED));
 		boolean hidden = Boolean.parseBoolean( job.get("hidden") );
-		doc.add( new Field("jobhidden",String.valueOf( hidden ), Field.Store.NO, Field.Index.NO_NORMS));
+		doc.add( new Field("jobhidden",String.valueOf( hidden ), Field.Store.NO, Field.Index.NOT_ANALYZED_NO_NORMS));
 		
 		String permissions = job.listPermissions();
-		doc.add(new Field("permissions", permissions, Field.Store.NO, Field.Index.TOKENIZED));
+		doc.add(new Field("permissions", permissions, Field.Store.NO, Field.Index.ANALYZED));
 		super.updateIndex(job, doc, inJobDetails);
 	}
 	
@@ -268,7 +268,9 @@ public class JobSearcher extends BaseLuceneSearcher
 	
 	public HitTracker findAllJobs() throws OpenEditException
 	{
-		return search("jobopen:true OR jobopen:false");
+		SearchQuery search = createSearchQuery();
+		search.addOrsGroup("jobopen","true false");
+		return search(search);
 	}
 
 	public HitTracker getAllHits(WebPageRequest inReq)

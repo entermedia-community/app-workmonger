@@ -131,15 +131,15 @@ public class TodoSearcher extends BaseLuceneSearcher
 	}
 	protected void updateIndex(Job job, Todo inTodo, Document doc, PropertyDetails inJobDetails, PropertyDetails inTodoDetail) throws CorruptIndexException, IOException
 	{
-		doc.add(new Field("id", inTodo.getId(), Field.Store.YES, Field.Index.NO_NORMS));
+		doc.add(new Field("id", inTodo.getId(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 
 		
 		String permissions = job.listPermissions();
-		doc.add(new Field("todopermissions", permissions, Field.Store.NO, Field.Index.TOKENIZED));
+		doc.add(new Field("todopermissions", permissions, Field.Store.NO, Field.Index.ANALYZED));
 
 		if( inTodo.getName() != null)
 		{
-			doc.add(new Field("name", inTodo.getName(), Field.Store.YES, Field.Index.NO_NORMS));
+			doc.add(new Field("name", inTodo.getName(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 		}
 		StringBuffer keywords = new StringBuffer();
 		keywords.append(inTodo.getName() );
@@ -150,7 +150,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 		keywords.append(" ");
 		keywords.append(inTodo.getId() );
 		
-		doc.add(new Field("description",keywords.toString(), Field.Store.NO, Field.Index.TOKENIZED));
+		doc.add(new Field("description",keywords.toString(), Field.Store.NO, Field.Index.ANALYZED));
 
 		List detailfields = inTodoDetail.findIndexProperties();
 		StatusChange laststatus = inTodo.getLastStatus();
@@ -161,18 +161,18 @@ public class TodoSearcher extends BaseLuceneSearcher
 			if( detail.getId().equals("hours") )
 			{
 				double hours = inTodo.getHours();
-				doc.add(new Field("hours", String.valueOf(hours), Field.Store.YES, Field.Index.NO_NORMS));
+				doc.add(new Field("hours", String.valueOf(hours), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( laststatus != null && detail.getId().equals("todolaststatus") && laststatus.getType() != null )
 			{
-					doc.add(new Field("todolaststatus", laststatus.getType(), Field.Store.YES, Field.Index.NO_NORMS));
+					doc.add(new Field("todolaststatus", laststatus.getType(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( laststatus != null && detail.getId().equals("todolaststatussummary"))
 			{
 				String summary = laststatus.getNoteSnip(500);
 				if(summary != null)
 				{
-					doc.add(new Field("todolaststatussummary", summary, Field.Store.YES, Field.Index.TOKENIZED));
+					doc.add(new Field("todolaststatussummary", summary, Field.Store.YES, Field.Index.ANALYZED));
 				}
 			}
 			else if(firststatus != null && detail.getId().equals("todofirststatussummary"))
@@ -180,7 +180,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 				String firstsummary = firststatus.getNoteSnip(70);
 				if(firstsummary != null)
 				{
-					doc.add(new Field("todofirststatussummary", firstsummary, Field.Store.YES, Field.Index.TOKENIZED));
+					doc.add(new Field("todofirststatussummary", firstsummary, Field.Store.YES, Field.Index.ANALYZED));
 				}
 			}
 			
@@ -189,7 +189,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 				try
 				{
 					String val = DateTools.dateToString(laststatus.getDated(), Resolution.MINUTE);
-					doc.add(new Field(detail.getId(), val, Field.Store.YES,	Field.Index.NO_NORMS));
+					doc.add(new Field(detail.getId(), val, Field.Store.YES,	Field.Index.NOT_ANALYZED_NO_NORMS));
 				}
 				catch (Exception ex)
 				{
@@ -198,7 +198,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 			} 
 			else if( laststatus != null && laststatus.getUser() != null &&  detail.getId().equals("todolaststatususer") )
 			{
-				doc.add(new Field("todolaststatususer", laststatus.getUser().getUserName(), Field.Store.YES, Field.Index.NO_NORMS));
+				doc.add(new Field("todolaststatususer", laststatus.getUser().getUserName(), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( detail.getId().equals("jobhidden"))
 			{
@@ -207,12 +207,12 @@ public class TodoSearcher extends BaseLuceneSearcher
 				{
 					isHidden = "false";
 				}
-				doc.add(new Field("jobhidden", isHidden,  Field.Store.YES, Field.Index.NO_NORMS));
+				doc.add(new Field("jobhidden", isHidden,  Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( detail.getId().equals("statuscount"))
 			{
 				int count = inTodo.getStatusChanges().size();
-				doc.add(new Field("statuscount", String.valueOf(count), Field.Store.YES, Field.Index.NO_NORMS));
+				doc.add(new Field("statuscount", String.valueOf(count), Field.Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( detail.getId().equals("rank"))
 			{
@@ -220,7 +220,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 				String val  = String.valueOf(rank);
 				String all = "0000000000" + val;
 				val = all.substring(all.length() - 10); // 10 is the max width
-				doc.add(new Field(detail.getId(), val, Field.Store.YES,	Field.Index.UN_TOKENIZED));
+				doc.add(new Field(detail.getId(), val, Field.Store.YES,	Field.Index.NOT_ANALYZED_NO_NORMS));
 			}
 			else if( detail.isIndex())
 			{

@@ -37,7 +37,7 @@ public class JobTest extends BaseTestCase
 		Job job = getTestJob(req, tracker);
 	
 		assertNotNull(job.getId());
-		HitTracker hits = tracker.getJobSearcher().search("id:testjob");
+		HitTracker hits = tracker.getJobSearcher().search("id","testjob");
 		assertTrue(hits.size() > 0);
 		tracker.getJobArchive().clear();
 		Job job2 = tracker.getJobArchive().getJobById(job.getId());
