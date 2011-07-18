@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="default" name="workmonger">
+<project basedir="." default="default" name="app-workmonger">
 <!-- doc before compile -->
   <target name="default" depends="clean, source, update-dependencies, compile, jar, javadoc, war, publish"/>
 	<target name="dependency" depends="default"/>
