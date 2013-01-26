@@ -128,7 +128,7 @@ public class JobSearcher extends BaseLuceneSearcher
 		//http://www.onjava.com/pub/a/onjava/2003/03/05/lucene.html
 		//http://www.onjava.com/pub/a/onjava/2003/03/05/lucene.html?page=2
 		//writer.mergeFactor = 10;
-		writer.setMergeFactor(100);
+		//writer.setMergeFactor(100);
 		try
 		{
 			 PropertyDetails details = getPropertyDetailsArchive().getPropertyDetails("job");
@@ -158,7 +158,7 @@ public class JobSearcher extends BaseLuceneSearcher
 					log.info("Error loading product:" + id);
 				}
 			}
-			writer.optimize();
+			//writer.optimize();
 		}
 		catch( Exception ex)
 		{

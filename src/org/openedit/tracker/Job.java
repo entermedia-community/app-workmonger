@@ -588,4 +588,10 @@ public class Job implements Data
 		}
 		return last;
 	}
+	@Override
+	public void setProperties(Map<String, String> inProperties)
+	{
+		fieldProperties = inProperties;
+		
+	}
 }

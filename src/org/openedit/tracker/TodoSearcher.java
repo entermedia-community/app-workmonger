@@ -95,7 +95,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 		//http://www.onjava.com/pub/a/onjava/2003/03/05/lucene.html
 		//http://www.onjava.com/pub/a/onjava/2003/03/05/lucene.html?page=2
 		//writer.mergeFactor = 10;
-		writer.setMergeFactor(100);
+		//writer.setMergeFactor(100);
 		try
 		{
 			 PropertyDetails details = getPropertyDetailsArchive().getPropertyDetails("job");
@@ -121,7 +121,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 					log.info("Error loading job:" + id);
 				}
 			}
-			writer.optimize();
+			//writer.optimize();
 
 		}
 		catch( Exception ex)
@@ -321,7 +321,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 		if( jobid != null)
 		{
 			search.addMatches("jobid",jobid);
-			search.putInput("jobid", jobid);
+			search.setProperty("jobid", jobid);
 		}
 		addActionFilters(inReq, search);
 		//search.addMatches("customer", inUser.getUserName(), "For user " + inUser.getShortDescription());
@@ -351,11 +351,7 @@ public class TodoSearcher extends BaseLuceneSearcher
 		changeSort(inReq, sort, hitsname);
 	}
 	
-	public HitTracker getAllHits(WebPageRequest inReq) 
-	{
-		//TODO: return all todos?
-		return new LuceneHitTracker();
-	}
+
 
 	
 }
